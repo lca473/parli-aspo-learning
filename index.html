@@ -527,22 +527,75 @@ function generateExercises(lessonId){
   return ordered.slice(0,12);
 }
 
+// Hand-crafted sentences per lesson
+const LS={greetings1:[],pronouns1:[],possessives:[],articles:[],
+people1:[{en:"The child plays",pa:["La","kido","ludi"]},{en:"The woman reads a book",pa:["La","femo","legi","libo"]}],
+people2:[{en:"My mother cooks",pa:["Men","matro","kusi"]},{en:"My father works",pa:["Men","patro","labori"]}],
+colors1:[{en:"The house is red",pa:["La","kaso","esi","reda"]},{en:"The book is blue",pa:["La","libo","esi","blua"]}],
+colors2:[{en:"The cat is orange",pa:["La","gato","esi","orana"]},{en:"The flower is purple",pa:["La","floro","esi","purpa"]}],
+numbers:[{en:"I have two books",pa:["Me","havi","dua","libos"]},{en:"We see three dogs",pa:["Nos","vidi","tria","pipos"]}],
+food1:[{en:"I eat bread",pa:["Me","nutri","pano"]},{en:"We eat fruit",pa:["Nos","nutri","fruko"]}],
+food2:[{en:"I drink water",pa:["Me","agwi","agwo"]},{en:"She drinks coffee",pa:["Lu","agwi","kafo"]}],
+cooking:[{en:"I cook in the kitchen",pa:["Me","kusi","en","la","kuso"]},{en:"I need a plate",pa:["Me","nedi","plato"]}],
+animals1:[{en:"The dog runs",pa:["La","pipo","kuri"]},{en:"I see the cat",pa:["Me","vidi","la","gato"]},{en:"The bird sings",pa:["La","pasero","kanti"]}],
+animals2:[{en:"The elephant is big",pa:["La","elefano","esi","granda"]},{en:"The monkey plays",pa:["La","simo","ludi"]}],
+animals3:[{en:"The spider is small",pa:["La","arano","esi","malgranda"]},{en:"The bee is here",pa:["La","abelo","esi","am"]}],
+home1:[{en:"The house is beautiful",pa:["La","kaso","esi","bela"]},{en:"I open the door",pa:["Me","abri","la","porto"]}],
+home2:[{en:"I sit on the chair",pa:["Me","sedi","sur","la","sedo"]},{en:"The bed is soft",pa:["La","kamo","esi","maldura"]}],
+objects1:[{en:"I read a book",pa:["Me","legi","libo"]},{en:"I have a new phone",pa:["Me","havi","nuva","telo"]}],
+objects2:[{en:"I need money",pa:["Me","nedi","deno"]},{en:"The shoes are new",pa:["La","sapos","esi","nuva"]}],
+verbs1:[{en:"I am here",pa:["Me","esi","am"]},{en:"We go to the park",pa:["Nos","iri","a","la","parko"]}],
+verbs2:[{en:"I want water",pa:["Me","voli","agwo"]},{en:"We should eat",pa:["Nos","debi","nutri"]}],
+verbs3:[{en:"The dog runs fast",pa:["La","pipo","kuri","rapida"]},{en:"The child jumps",pa:["La","kido","puli"]}],
+verbs4:[{en:"I work in the office",pa:["Me","labori","en","la","ofiso"]},{en:"She writes a book",pa:["Lu","plumi","libo"]}],
+verbs5:[{en:"I think about you",pa:["Me","pensi","sur","yu"]},{en:"I remember my friend",pa:["Me","repensi","men","filo"]}],
+verbs6:[{en:"I give a gift",pa:["Me","doni","dono"]},{en:"She buys bread",pa:["Lu","deni","pano"]}],
+verbs7:[{en:"I love my family",pa:["Me","ami","men","familo"]},{en:"I find the key",pa:["Me","trovi","la","klavo"]}],
+verbs8:[{en:"I start to work",pa:["Me","komensi","labori"]},{en:"We continue to walk",pa:["Nos","dureli","marsi"]}],
+adj1:[{en:"The house is big",pa:["La","kaso","esi","granda"]},{en:"The dog is small",pa:["La","pipo","esi","malgranda"]}],
+adj2:[{en:"The horse runs fast",pa:["La","kavalo","kuri","rapida"]},{en:"She is strong",pa:["Lu","esi","forta"]}],
+adj3:[{en:"The water is cold",pa:["La","agwo","esi","friga"]},{en:"The coffee is hot",pa:["La","kafo","esi","malfriga"]}],
+adj4:[{en:"I am happy",pa:["Me","esi","felisa"]},{en:"She is smart",pa:["Lu","esi","kleva"]}],
+nature1:[{en:"The sun is bright",pa:["La","suno","esi","luma"]},{en:"The wind is strong",pa:["La","venaro","esi","forta"]}],
+nature2:[{en:"The flower is beautiful",pa:["La","floro","esi","bela"]},{en:"I walk in the forest",pa:["Me","marsi","en","la","foro"]}],
+nature3:[{en:"The river is long",pa:["La","rivo","esi","longa"]},{en:"The mountain is tall",pa:["La","monto","esi","alta"]}],
+places:[{en:"I go to the city",pa:["Me","iri","a","la","urbo"]},{en:"The school is big",pa:["La","skolo","esi","granda"]}],
+body1:[{en:"My head hurts",pa:["Men","krano","doli"]},{en:"The face is beautiful",pa:["La","faso","esi","bela"]}],
+body2:[{en:"I write with my hand",pa:["Me","plumi","kon","men","mano"]},{en:"The heart is strong",pa:["La","koro","esi","forta"]}],
+health:[{en:"I am sick",pa:["Me","esi","malsana"]},{en:"I need medicine",pa:["Me","nedi","mediko"]},{en:"The doctor helps",pa:["La","doktio","helpi"]}],
+preps1:[{en:"The cat is in the house",pa:["La","gato","esi","en","la","kaso"]},{en:"The book is on the table",pa:["La","libo","esi","sur","la","tablo"]}],
+preps2:[{en:"I walk through the forest",pa:["Me","marsi","tru","la","foro"]},{en:"The store is near",pa:["La","tendo","esi","serka"]}],
+conjunctions:[{en:"I eat and drink",pa:["Me","nutri","y","agwi"]},{en:"I work but I am tired",pa:["Me","labori","ma","me","esi","dorma"]}],
+time1:[{en:"I eat today",pa:["Me","nutri","oyo"]},{en:"I will go tomorrow",pa:["Me","fu","iri","fuyo"]}],
+time2:[{en:"I work in the morning",pa:["Me","labori","en","la","matino"]},{en:"We eat in the evening",pa:["Nos","nutri","en","la","spero"]}],
+days:[{en:"Today is Monday",pa:["Oyo","esi","duayo"]},{en:"I rest on Saturday",pa:["Me","resti","sur","sepayo"]}],
+seasons:[{en:"Summer is hot",pa:["Somero","esi","malfriga"]},{en:"The weather is good",pa:["La","nebofelo","esi","bona"]}],
+transport:[{en:"I drive a car",pa:["Me","kari","karo"]},{en:"The airplane flies",pa:["La","aviono","foli"]}],
+travel:[{en:"I live in the city",pa:["Me","kasi","en","la","urbo"]},{en:"The world is big",pa:["La","mondo","esi","granda"]}],
+feelings1:[{en:"Love is beautiful",pa:["Amo","esi","bela"]},{en:"I hope for peace",pa:["Me","aspi","paso"]}],
+feelings2:[{en:"I am sleepy",pa:["Me","esi","dorma"]},{en:"She is ready",pa:["Lu","esi","lista"]}],
+personality:[{en:"She is kind",pa:["Lu","esi","amabla"]},{en:"They are helpful",pa:["Los","esi","helpa"]}],
+mal1:[{en:"The old house is ugly",pa:["La","malnuva","kaso","esi","malbela"]},{en:"It is hot today",pa:["Lo","esi","malfriga","oyo"]}],
+mal2:[{en:"I take the book",pa:["Me","maldoni","la","libo"]},{en:"She leaves the room",pa:["Lu","malveni","la","domo"]}],
+tense1:[{en:"I saw the dog",pa:["Me","pa","vidi","la","pipo"]},{en:"I will eat bread",pa:["Me","fu","nutri","pano"]}],
+tense2:[{en:"They came home",pa:["Los","pa","veni","a","kaso"]},{en:"She will sing tomorrow",pa:["Lu","fu","kanti","fuyo"]}],
+compound1:[{en:"I go to the bakery",pa:["Me","iri","a","la","panotendo"]},{en:"I play videogames",pa:["Me","ludi","kompoludo"]}],
+compound2:[{en:"She smiles at me",pa:["Lu","felifasi","a","me"]},{en:"I see a ghost",pa:["Me","vidi","morahumo"]}],
+diminutive:[{en:"The puppy is small",pa:["La","pipido","esi","malgranda"]},{en:"I see a flame",pa:["Me","vidi","fogido"]}],
+daily1:[{en:"I wake in the morning",pa:["Me","waki","en","la","matino"]},{en:"I eat and drink",pa:["Me","nutri","y","agwi"]}],
+daily2:[{en:"I clean the house",pa:["Me","puri","la","kaso"]},{en:"I send a message",pa:["Me","sendi","mesago"]}],
+communication:[{en:"I listen to music",pa:["Me","oreli","musiko"]},{en:"We watch a movie",pa:["Nos","okli","filmo"]}],
+abstract1:[{en:"I have an idea",pa:["Me","havi","ideo"]},{en:"I find a solution",pa:["Me","trovi","solvo"]}],
+abstract2:[{en:"Life is beautiful",pa:["Vivo","esi","bela"]},{en:"Freedom is important",pa:["Libero","esi","grava"]}],
+advanced1:[{en:"I own a house",pa:["Me","propi","kaso"]},{en:"I promise to help",pa:["Me","wadi","helpi"]}],
+adverbs:[{en:"I always work",pa:["Me","sempra","labori"]},{en:"He arrives soon",pa:["Le","veni","balda"]}],
+quantities:[{en:"I have many books",pa:["Me","havi","manga","libos"]},{en:"That is enough",pa:["Farlan","esi","lagoma"]}],
+};
+
 function buildMiniSentences(items,lessonId){
-  const sentences=[];
-  const templates=[
-    {en:(w)=>`The ${w.en} is here`,pa:(w)=>["La",w.pa,"esi","am"]},
-    {en:(w)=>`I see the ${w.en}`,pa:(w)=>["Me","vidi","la",w.pa]},
-    {en:(w)=>`I want ${w.en}`,pa:(w)=>["Me","voli",w.pa]},
-    {en:(w)=>`I have ${w.en}`,pa:(w)=>["Me","havi",w.pa]},
-  ];
-  const chosen=pick(items,2);
-  const tmpl=pick(templates,2);
-  chosen.forEach((item,i)=>{
-    const t=tmpl[i%tmpl.length];
-    const pa=t.pa(item);
-    sentences.push({type:"wordOrder",prompt:`Translate: "${t.en(item)}"`,correctOrder:pa,shuffled:shuffle([...pa])});
-  });
-  return sentences;
+  const predefined=LS[lessonId];
+  if(!predefined||predefined.length===0)return[];
+  return pick(predefined,Math.min(2,predefined.length)).map(s=>({type:"wordOrder",prompt:`Translate: "${s.en}"`,correctOrder:s.pa,shuffled:shuffle([...s.pa])}));
 }
 
 // ═══════════════════════════════════════════════════════════════
