@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Parli Aspo — Learn the Language of Hope</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F1A1F;
+  --bg2: #162229;
+  --card: #1C2F38;
+  --card-hover: #22394A;
+  --green: #58CC02;
+  --green-dark: #46A302;
+  --green-glow: rgba(88,204,2,0.18);
+  --red: #FF4B4B;
+  --red-glow: rgba(255,75,75,0.12);
+  --gold: #FFC800;
+  --gold-glow: rgba(255,200,0,0.15);
+  --blue: #1CB0F6;
+  --blue-glow: rgba(28,176,246,0.12);
+  --purple: #CE82FF;
+  --text: #FFFFFF;
+  --dim: #7A99A8;
+  --mid: #A3BCC9;
+  --border: #263A45;
+  --input: #0B151B;
+  --ok: #1E4A14;
+  --bad: #4A1414;
+  --radius: 16px;
+  --font: 'Nunito', 'Baloo 2', system-ui, sans-serif;
+  --display: 'Baloo 2', 'Nunito', system-ui, sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { background:#0F1A1F; }
+body { font-family:var(--font); background:#0F1A1F; background:var(--bg); color:#FFFFFF; color:var(--text); min-height:100vh; min-height:100dvh; overflow-x:hidden; }
+button { font-family:var(--font); cursor:pointer; border:none; outline:none; color:#FFFFFF; }
+input { font-family:var(--font); outline:none; color:#FFFFFF; }
+
+/* Animations */
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pop { 0%{transform:scale(0.8);opacity:0} 60%{transform:scale(1.05)} 100%{transform:scale(1);opacity:1} }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
+@keyframes glow { 0%,100%{box-shadow:0 0 20px var(--green-glow)} 50%{box-shadow:0 0 40px var(--green-glow)} }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes confetti { 0%{transform:translateY(0) rotate(0);opacity:1} 100%{transform:translateY(-200px) rotate(720deg);opacity:0} }
+.fade-up { animation: fadeUp 0.4s ease-out both; }
+.pop { animation: pop 0.35s ease-out both; }
+.shake { animation: shake 0.4s ease-out; }
+.float { animation: float 3s ease-in-out infinite; }
+
+/* Screen containers */
+.screen { min-height:100vh; min-height:100dvh; background:#0F1A1F; background:var(--bg); color:#FFFFFF; }
+
+/* Progress bar */
+.progress-track { width:100%; height:14px; background:var(--input); border-radius:99px; overflow:hidden; }
+.progress-fill { height:100%; border-radius:99px; transition:width 0.6s cubic-bezier(.34,1.56,.64,1); }
+
+/* Badges */
+.badge { display:inline-flex; align-items:center; gap:5px; border-radius:99px; padding:4px 12px; font-size:13px; font-weight:800; }
+.badge-xp { background:var(--gold-glow); border:1.5px solid var(--gold); color:var(--gold); }
+.badge-streak { background:rgba(255,120,0,0.12); border:1.5px solid #FF7800; color:#FF7800; }
+.badge-lessons { background:var(--blue-glow); border:1.5px solid var(--blue); color:var(--blue); }
+
+/* Option buttons */
+.opt-btn {
+  width:100%; padding:15px 18px; background:var(--card); border:2.5px solid var(--border);
+  border-radius:var(--radius); color:var(--text); font-size:16px; font-weight:700;
+  text-align:left; transition:all 0.15s; position:relative; overflow:hidden;
+}
+.opt-btn:active { transform:scale(0.97); }
+.opt-btn.correct { background:var(--ok); border-color:var(--green); box-shadow:0 0 24px var(--green-glow); }
+.opt-btn.wrong { background:var(--bad); border-color:var(--red); box-shadow:0 0 24px var(--red-glow); }
+.opt-btn.faded { opacity:0.35; }
+
+/* Match buttons */
+.match-btn {
+  padding:12px 14px; border-radius:13px; font-size:14px; font-weight:700;
+  border:2.5px solid var(--border); background:var(--card); color:var(--text);
+  transition:all 0.15s; text-align:center;
+}
+.match-btn.selected { background:var(--blue-glow); border-color:var(--blue); }
+.match-btn.matched { background:var(--ok); border-color:var(--green); opacity:0.5; }
+.match-btn.wrong-match { background:var(--bad); border-color:var(--red); }
+
+/* Word bank */
+.word-chip {
+  padding:9px 15px; border-radius:11px; font-size:15px; font-weight:700;
+  border:2.5px solid var(--border); background:var(--card); color:var(--text);
+  transition:all 0.12s;
+}
+.word-chip:active { transform:scale(0.93); }
+.word-chip.placed { background:var(--blue-glow); border-color:var(--blue); }
+
+/* Lesson card */
+.lesson-card {
+  width:100%; display:flex; align-items:center; gap:14px; padding:14px 16px;
+  border:2.5px solid var(--border); border-radius:var(--radius); margin-bottom:10px;
+  text-align:left; transition:all 0.15s; background:var(--card);
+}
+.lesson-card:active { transform:scale(0.98); }
+.lesson-card.completed { background:rgba(88,204,2,0.06); border-color:var(--green); }
+.lesson-card.locked { opacity:0.35; cursor:default; }
+.lesson-icon {
+  width:50px; height:50px; border-radius:14px; display:flex; align-items:center;
+  justify-content:center; font-size:24px; flex-shrink:0; background:var(--input);
+}
+.lesson-card.completed .lesson-icon { background:var(--green-glow); border:2px solid var(--green); }
+
+/* Tabs */
+.tab-bar { display:flex; border-bottom:1.5px solid var(--border); margin:8px 20px 0; }
+.tab-btn {
+  flex:1; padding:13px 0; background:none; color:var(--dim); font-size:13px;
+  font-weight:800; letter-spacing:0.5px; border-bottom:3px solid transparent;
+  transition:all 0.2s;
+}
+.tab-btn.active { color:var(--green); border-bottom-color:var(--green); }
+
+/* Leaderboard */
+.lb-row {
+  display:flex; align-items:center; gap:12px; padding:12px 14px;
+  background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+  margin-bottom:8px;
+}
+.lb-row.is-me { background:rgba(88,204,2,0.06); border:2px solid var(--green); }
+
+/* Primary button */
+.btn-primary {
+  width:100%; padding:16px; background:var(--green); border-radius:var(--radius);
+  color:#fff; font-size:17px; font-weight:800; letter-spacing:0.3px;
+  box-shadow:0 4px 20px var(--green-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+  transition:all 0.15s; border:none;
+}
+.btn-primary:active { transform:scale(0.97); background:var(--green-dark); }
+.btn-primary:disabled { background:var(--border); box-shadow:none; cursor:default; }
+
+.btn-secondary {
+  width:100%; padding:14px; background:none; border:2px solid var(--border);
+  border-radius:var(--radius); color:var(--dim); font-size:15px; font-weight:700;
+}
+
+/* Check button (bottom fixed) */
+.check-bar {
+  position:fixed; bottom:0; left:0; right:0; padding:16px 20px;
+  padding-bottom:max(16px, env(safe-area-inset-bottom));
+  background:linear-gradient(transparent, var(--bg) 30%);
+}
+
+/* Confetti */
+.confetti-piece {
+  position:fixed; width:10px; height:10px; border-radius:2px;
+  animation:confetti 1.2s ease-out forwards; pointer-events:none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:99px; }
+
+/* Pronunciation guide */
+.pronun { color:var(--blue); font-size:13px; font-style:italic; font-weight:600; margin-top:2px; }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// FIREBASE CONFIG — Replace with your own Firebase project config
+// ═══════════════════════════════════════════════════════════════
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBVM5XYorwmLupci8VbhyXmvsrE9wm_338",
+  authDomain: "parli-aspo-app.firebaseapp.com",
+  databaseURL: "https://parli-aspo-app-default-rtdb.firebaseio.com",
+  projectId: "parli-aspo-app",
+  storageBucket: "parli-aspo-app.firebasestorage.app",
+  messagingSenderId: "377949754685",
+  appId: "1:377949754685:web:cda68cf2bd4ec0678ee154"
+};
+
+let db = null;
+let firebaseReady = false;
+try {
+  if (typeof firebase !== "undefined" && firebase.initializeApp) {
+    firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.database();
+    firebaseReady = true;
+  }
+} catch(e) {
+  console.warn("Firebase init failed:", e);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// VOCABULARY
+// ═══════════════════════════════════════════════════════════════
+const VOCAB = {
+  greetings: [
+    {pa:"grati",en:"please/thank you",pr:"/gra.ti/"},
+    {pa:"bona",en:"good",pr:"/bo.na/"},
+    {pa:"skusa",en:"sorry",pr:"/sku.sa/"},
+    {pa:"si",en:"yes",pr:"/si/"},
+    {pa:"no",en:"no",pr:"/no/"},
+    {pa:"bem",en:"well (interjection)",pr:"/bem/"},
+    {pa:"am",en:"here",pr:"/am/"},
+    {pa:"faram",en:"there",pr:"/fa.ram/"},
+  ],
+  pronouns: [
+    {pa:"me",en:"I/me",pr:"/me/"},{pa:"yu",en:"you (singular)",pr:"/yu/"},{pa:"lo",en:"he/she/it",pr:"/lo/"},
+    {pa:"nos",en:"we/us",pr:"/nos/"},{pa:"yus",en:"you (plural)",pr:"/yus/"},{pa:"los",en:"they/them",pr:"/los/"},
+    {pa:"men",en:"my/mine",pr:"/men/"},{pa:"yun",en:"your/yours",pr:"/yun/"},
+  ],
+  people: [
+    {pa:"humo",en:"person",pr:"/hu.mo/"},{pa:"filo",en:"friend",pr:"/fi.lo/"},{pa:"familo",en:"family",pr:"/fa.mi.lo/"},
+    {pa:"patro",en:"father",pr:"/pa.tro/"},{pa:"matro",en:"mother",pr:"/ma.tro/"},{pa:"frato",en:"brother",pr:"/fra.to/"},
+    {pa:"yoyo",en:"sister",pr:"/yo.yo/"},{pa:"kido",en:"child",pr:"/ki.do/"},
+    {pa:"viro",en:"man",pr:"/vi.ro/"},{pa:"femo",en:"woman",pr:"/fe.mo/"},
+  ],
+  animals: [
+    {pa:"pipo",en:"dog",pr:"/pi.po/"},{pa:"gato",en:"cat",pr:"/ga.to/"},{pa:"pisko",en:"fish",pr:"/pis.ko/"},
+    {pa:"kavalo",en:"horse",pr:"/ka.va.lo/"},{pa:"pasero",en:"bird",pr:"/pa.se.ro/"},{pa:"bovo",en:"cow",pr:"/bo.vo/"},
+    {pa:"serpo",en:"snake",pr:"/ser.po/"},{pa:"elefano",en:"elephant",pr:"/e.le.fa.no/"},
+    {pa:"simo",en:"monkey",pr:"/si.mo/"},{pa:"galo",en:"chicken",pr:"/ga.lo/"},
+  ],
+  colors: [
+    {pa:"reda",en:"red",pr:"/re.da/"},{pa:"blua",en:"blue",pr:"/blu.a/"},{pa:"verda",en:"green",pr:"/ver.da/"},
+    {pa:"yela",en:"yellow",pr:"/ye.la/"},{pa:"negra",en:"black",pr:"/ne.gra/"},{pa:"blanka",en:"white",pr:"/blan.ka/"},
+    {pa:"orana",en:"orange",pr:"/o.ra.na/"},{pa:"purpa",en:"purple",pr:"/pur.pa/"},
+    {pa:"grisa",en:"gray",pr:"/gri.sa/"},{pa:"bruna",en:"brown",pr:"/bru.na/"},
+  ],
+  objects: [
+    {pa:"kaso",en:"house",pr:"/ka.so/"},{pa:"domo",en:"room",pr:"/do.mo/"},{pa:"porto",en:"door",pr:"/por.to/"},
+    {pa:"tablo",en:"table",pr:"/ta.blo/"},{pa:"sedo",en:"chair",pr:"/se.do/"},{pa:"kamo",en:"bed",pr:"/ka.mo/"},
+    {pa:"libo",en:"book",pr:"/li.bo/"},{pa:"telo",en:"phone",pr:"/te.lo/"},
+    {pa:"karo",en:"car",pr:"/ka.ro/"},{pa:"deno",en:"money",pr:"/de.no/"},
+  ],
+  food: [
+    {pa:"nutro",en:"food",pr:"/nu.tro/"},{pa:"pano",en:"bread",pr:"/pa.no/"},{pa:"agwo",en:"water",pr:"/a.gwo/"},
+    {pa:"lakto",en:"milk",pr:"/lak.to/"},{pa:"karno",en:"meat",pr:"/kar.no/"},{pa:"fruko",en:"fruit",pr:"/fru.ko/"},
+    {pa:"kafo",en:"coffee",pr:"/ka.fo/"},{pa:"teo",en:"tea",pr:"/te.o/"},
+    {pa:"ovo",en:"egg",pr:"/o.vo/"},{pa:"salo",en:"salt",pr:"/sa.lo/"},
+  ],
+  basicVerbs: [
+    {pa:"esi",en:"be/is/am",pr:"/e.si/"},{pa:"havi",en:"have",pr:"/ha.vi/"},{pa:"fari",en:"do/make",pr:"/fa.ri/"},
+    {pa:"iri",en:"go",pr:"/i.ri/"},{pa:"veni",en:"come",pr:"/ve.ni/"},{pa:"vidi",en:"see",pr:"/vi.di/"},
+    {pa:"sabi",en:"know",pr:"/sa.bi/"},{pa:"voli",en:"want",pr:"/vo.li/"},
+    {pa:"povi",en:"can",pr:"/po.vi/"},{pa:"debi",en:"should",pr:"/de.bi/"},
+  ],
+  actionVerbs: [
+    {pa:"nutri",en:"eat",pr:"/nu.tri/"},{pa:"agwi",en:"drink",pr:"/a.gwi/"},{pa:"kuri",en:"run",pr:"/ku.ri/"},
+    {pa:"marsi",en:"walk",pr:"/mar.si/"},{pa:"dormi",en:"sleep",pr:"/dor.mi/"},{pa:"labori",en:"work",pr:"/la.bo.ri/"},
+    {pa:"ludi",en:"play",pr:"/lu.di/"},{pa:"legi",en:"read",pr:"/le.gi/"},
+    {pa:"plumi",en:"write",pr:"/plu.mi/"},{pa:"parli",en:"speak",pr:"/par.li/"},
+  ],
+  adjectives: [
+    {pa:"bela",en:"beautiful",pr:"/be.la/"},{pa:"granda",en:"big",pr:"/gran.da/"},{pa:"malgranda",en:"small",pr:"/mal.gran.da/"},
+    {pa:"rapida",en:"fast",pr:"/ra.pi.da/"},{pa:"malrapida",en:"slow",pr:"/mal.ra.pi.da/"},{pa:"forta",en:"strong",pr:"/for.ta/"},
+    {pa:"felisa",en:"happy",pr:"/fe.li.sa/"},{pa:"malfelisa",en:"sad",pr:"/mal.fe.li.sa/"},
+    {pa:"nuva",en:"new",pr:"/nu.va/"},{pa:"fasila",en:"easy",pr:"/fa.si.la/"},
+  ],
+  nature: [
+    {pa:"suno",en:"sun",pr:"/su.no/"},{pa:"luno",en:"moon",pr:"/lu.no/"},{pa:"stelo",en:"star",pr:"/ste.lo/"},
+    {pa:"arbo",en:"tree",pr:"/ar.bo/"},{pa:"floro",en:"flower",pr:"/flo.ro/"},{pa:"rivo",en:"river",pr:"/ri.vo/"},
+    {pa:"foro",en:"forest",pr:"/fo.ro/"},{pa:"monto",en:"mountain",pr:"/mon.to/"},
+    {pa:"nebo",en:"sky",pr:"/ne.bo/"},{pa:"lago",en:"lake",pr:"/la.go/"},
+  ],
+  prepositions: [
+    {pa:"en",en:"in",pr:"/en/"},{pa:"a",en:"to/at",pr:"/a/"},{pa:"sur",en:"on/about",pr:"/sur/"},
+    {pa:"sub",en:"under",pr:"/sub/"},{pa:"kon",en:"with",pr:"/kon/"},{pa:"sen",en:"without",pr:"/sen/"},
+    {pa:"for",en:"for",pr:"/for/"},{pa:"de",en:"of",pr:"/de/"},
+    {pa:"inter",en:"between",pr:"/in.ter/"},{pa:"serka",en:"next to/near",pr:"/ser.ka/"},
+  ],
+  grammar_mal: [
+    {pa:"malfilo",en:"enemy",note:"mal + filo (friend)"},{pa:"malgranda",en:"small",note:"mal + granda (big)"},
+    {pa:"malfelisa",en:"sad",note:"mal + felisa (happy)"},{pa:"malbela",en:"ugly",note:"mal + bela (beautiful)"},
+    {pa:"malfriga",en:"hot",note:"mal + friga (cold)"},{pa:"malnuva",en:"old",note:"mal + nuva (new)"},
+    {pa:"malpura",en:"dirty",note:"mal + pura (clean)"},{pa:"malforta",en:"weak",note:"mal + forta (strong)"},
+  ],
+  grammar_tense: [
+    {pa:"me vidi",en:"I see",note:"Present tense"},{pa:"me pa vidi",en:"I saw",note:"Past: pa + verb"},
+    {pa:"me fu vidi",en:"I will see",note:"Future: fu + verb"},{pa:"me pa nutri",en:"I ate",note:"Past: pa + verb"},
+    {pa:"me fu iri",en:"I will go",note:"Future: fu + verb"},{pa:"los pa veni",en:"they came",note:"Past: pa + verb"},
+    {pa:"nos fu ludi",en:"we will play",note:"Future: fu + verb"},{pa:"yu pa labori",en:"you worked",note:"Past: pa + verb"},
+  ],
+  sentences: [
+    {pa:["Me","esi","bona"],en:"I am good"},{pa:["La","pipo","esi","granda"],en:"The dog is big"},
+    {pa:["Me","vidi","la","gato"],en:"I see the cat"},{pa:["Yu","havi","nuva","libo"],en:"You have a new book"},
+    {pa:["Nos","nutri","pano"],en:"We eat bread"},{pa:["La","kaso","esi","bela"],en:"The house is beautiful"},
+    {pa:["Me","voli","agwo"],en:"I want water"},{pa:["La","femo","marsi","rapida"],en:"The woman walks quickly"},
+    {pa:["Ki","yu","sabi"],en:"Do you know?"},{pa:["Me","ami","men","familo"],en:"I love my family"},
+  ],
+};
+
+const LESSONS = [
+  {id:"greetings",title:"Basics 1",desc:"Greetings & essentials",icon:"👋",vocabKey:"greetings",xp:10,diff:1},
+  {id:"pronouns",title:"Pronouns",desc:"I, you, we, they",icon:"👤",vocabKey:"pronouns",xp:10,diff:1},
+  {id:"people",title:"People",desc:"Family & friends",icon:"👨‍👩‍👧‍👦",vocabKey:"people",xp:15,diff:1},
+  {id:"colors",title:"Colors",desc:"All the colors",icon:"🎨",vocabKey:"colors",xp:15,diff:2},
+  {id:"animals",title:"Animals",desc:"Creatures big & small",icon:"🐾",vocabKey:"animals",xp:15,diff:2},
+  {id:"food",title:"Food & Drink",desc:"Eating & drinking",icon:"🍞",vocabKey:"food",xp:15,diff:2},
+  {id:"objects",title:"Objects",desc:"Everyday things",icon:"🏠",vocabKey:"objects",xp:15,diff:2},
+  {id:"basicVerbs",title:"Verbs 1",desc:"Being & having",icon:"✨",vocabKey:"basicVerbs",xp:20,diff:3},
+  {id:"actionVerbs",title:"Verbs 2",desc:"Actions & doing",icon:"🏃",vocabKey:"actionVerbs",xp:20,diff:3},
+  {id:"adjectives",title:"Adjectives",desc:"Describing things",icon:"💎",vocabKey:"adjectives",xp:20,diff:3},
+  {id:"nature",title:"Nature",desc:"The natural world",icon:"🌿",vocabKey:"nature",xp:20,diff:3},
+  {id:"prepositions",title:"Prepositions",desc:"Where things are",icon:"📍",vocabKey:"prepositions",xp:20,diff:4},
+  {id:"grammar_mal",title:"mal- Prefix",desc:"Opposites with mal-",icon:"🔄",vocabKey:"grammar_mal",xp:25,diff:4},
+  {id:"grammar_tense",title:"Past & Future",desc:"pa & fu tenses",icon:"⏳",vocabKey:"grammar_tense",xp:25,diff:5},
+  {id:"sentences",title:"Sentences",desc:"Build full sentences",icon:"📝",vocabKey:"sentences",xp:30,diff:5},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════════════════════
+function shuffle(arr) {
+  const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a;
+}
+function pick(arr,n){return shuffle(arr).slice(0,n);}
+
+// ═══════════════════════════════════════════════════════════════
+// LOCAL STORAGE
+// ═══════════════════════════════════════════════════════════════
+function saveLocal(key,val){try{localStorage.setItem(key,JSON.stringify(val))}catch(e){}}
+function loadLocal(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse(v):def}catch(e){return def}}
+
+function getCurrentUsername(){
+  return loadLocal("pa_current_user","");
+}
+function setCurrentUsername(name){
+  saveLocal("pa_current_user",name);
+}
+
+function loadUserData(username){
+  if(!username) return {username:"",xp:0,streak:0,lessonsCompleted:[],lastActiveDate:null};
+  const data = loadLocal("pa_user_"+username, {username,xp:0,streak:0,lessonsCompleted:[],lastActiveDate:null});
+  data.username = username;
+  // Streak check
+  if(data.lastActiveDate){
+    const today=new Date().toDateString();
+    const yesterday=new Date(Date.now()-86400000).toDateString();
+    if(data.lastActiveDate!==today && data.lastActiveDate!==yesterday) data.streak=0;
+    if(data.lastActiveDate!==today){data.streak=(data.streak||0)+1;data.lastActiveDate=today;saveLocal("pa_user_"+username,data);}
+  }
+  return data;
+}
+function saveUserData(data){
+  if(!data.username)return;
+  saveLocal("pa_user_"+data.username,data);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FIREBASE LEADERBOARD
+// ═══════════════════════════════════════════════════════════════
+async function pushToLeaderboard(data){
+  if(!firebaseReady||!db||!data.username)return;
+  try{
+    await db.ref("leaderboard/"+data.username.replace(/[.#$\/\[\]]/g,"_")).set({
+      name:data.username, xp:data.xp, streak:data.streak, lessons:data.lessonsCompleted.length,
+      updatedAt:Date.now()
+    });
+  }catch(e){console.warn("Firebase push error:",e);}
+}
+async function fetchLeaderboard(){
+  if(!firebaseReady||!db) return [];
+  try{
+    const snap = await db.ref("leaderboard").orderByChild("xp").limitToLast(50).once("value");
+    const entries=[];
+    snap.forEach(c=>{entries.push(c.val());});
+    return entries.sort((a,b)=>b.xp-a.xp);
+  }catch(e){console.warn("Firebase fetch error:",e);return [];}
+}
+
+// ═══════════════════════════════════════════════════════════════
+// EXERCISE GENERATION
+// ═══════════════════════════════════════════════════════════════
+function generateExercises(lessonId){
+  const lesson=LESSONS.find(l=>l.id===lessonId);
+  const vocab=VOCAB[lesson.vocabKey];
+  const exercises=[];
+
+  if(lessonId==="sentences"){
+    vocab.forEach(item=>{
+      exercises.push({type:"wordOrder",prompt:`Translate: "${item.en}"`,correctOrder:item.pa,shuffled:shuffle([...item.pa])});
+    });
+    vocab.slice(0,5).forEach(item=>{
+      const wrong=pick(vocab.filter(v=>v.en!==item.en),3).map(v=>v.en);
+      exercises.push({type:"mc",prompt:`What does "${item.pa.join(" ")}" mean?`,correct:item.en,options:shuffle([item.en,...wrong])});
+    });
+  } else {
+    const items=vocab.map(v=>({pa:v.pa,en:v.en,note:v.note,pr:v.pr}));
+    items.forEach(item=>{
+      const wrong=pick(items.filter(v=>v.en!==item.en),3).map(v=>v.en);
+      exercises.push({type:"mc",prompt:`What does "${item.pa}" mean?`,correct:item.en,options:shuffle([item.en,...wrong]),note:item.note,pr:item.pr,paWord:item.pa});
+    });
+    items.slice(0,5).forEach(item=>{
+      const wrong=pick(items.filter(v=>v.pa!==item.pa),3).map(v=>v.pa);
+      exercises.push({type:"mc",prompt:`How do you say "${item.en}" in Parli Aspo?`,correct:item.pa,options:shuffle([item.pa,...wrong])});
+    });
+    const matchItems=pick(items,4);
+    exercises.push({type:"match",pairs:matchItems.map(v=>({left:v.pa,right:v.en}))});
+    items.slice(0,3).forEach(item=>{
+      exercises.push({type:"fill",prompt:`"${item.en}" in Parli Aspo is:`,correct:item.pa.toLowerCase()});
+    });
+  }
+  return shuffle(exercises).slice(0,10);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// APP
+// ═══════════════════════════════════════════════════════════════
+const app = document.getElementById("app");
+
+let state = {
+  screen: "loading",
+  user: {username:"",xp:0,streak:0,lessonsCompleted:[],lastActiveDate:null},
+  tab: "learn",
+  lesson: null,
+  exercises: [],
+  exIdx: 0,
+  correct: 0,
+  hearts: 3,
+  accXP: 0,
+  leaderboard: [],
+  // exercise-specific
+  mcSelected: null,
+  mcAnswered: false,
+  matchSelectedLeft: null,
+  matchMatched: [],
+  matchWrong: null,
+  matchShuffledRight: [],
+  fillInput: "",
+  fillAnswered: false,
+  fillCorrect: false,
+  woSelected: [],
+  woAvailable: [],
+  woAnswered: false,
+  woCorrect: false,
+};
+
+function setState(partial){
+  Object.assign(state, partial);
+  render();
+}
+
+// Init
+setTimeout(()=>{
+  const savedName = getCurrentUsername();
+  if(savedName){
+    const user = loadUserData(savedName);
+    setState({user, screen:"home"});
+    fetchLeaderboard().then(lb=>setState({leaderboard:lb}));
+  } else {
+    setState({screen:"username"});
+  }
+},400);
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════════
+function render(){
+  switch(state.screen){
+    case "loading": renderLoading(); break;
+    case "username": renderUsername(); break;
+    case "home": renderHome(); break;
+    case "lesson": renderLesson(); break;
+    case "complete": renderComplete(); break;
+  }
+}
+
+function renderLoading(){
+  app.innerHTML=`
+    <div class="screen" style="display:flex;align-items:center;justify-content:center;flex-direction:column">
+      <div class="float" style="font-size:64px;margin-bottom:16px">🌍</div>
+      <div style="font-family:var(--display);font-size:26px;color:var(--green);font-weight:800">Parli Aspo</div>
+      <div style="color:var(--dim);font-size:14px;margin-top:6px">La lingo de aspo</div>
+    </div>`;
+}
+
+function renderUsername(){
+  app.innerHTML=`
+    <div class="screen" style="display:flex;align-items:center;justify-content:center;padding:24px">
+      <div style="text-align:center;max-width:360px;width:100%">
+        <div class="float" style="font-size:72px;margin-bottom:16px">🌍</div>
+        <div style="font-family:var(--display);font-size:32px;color:var(--green);font-weight:800;margin-bottom:4px">Parli Aspo</div>
+        <div style="color:var(--dim);font-size:15px;margin-bottom:36px">The language of hope</div>
+        <input id="nameInput" type="text" placeholder="Enter your username" maxlength="20" value=""
+          style="width:100%;padding:16px;background:var(--input);border:2.5px solid var(--border);border-radius:var(--radius);
+          color:var(--text);font-size:17px;font-weight:700;text-align:center;margin-bottom:8px">
+        <div style="color:var(--dim);font-size:12px;margin-bottom:16px">New username = new account · Existing username = resume progress</div>
+        <button id="startBtn" class="btn-primary">START LEARNING</button>
+      </div>
+    </div>`;
+  const input=document.getElementById("nameInput");
+  const btn=document.getElementById("startBtn");
+  input.focus();
+  input.addEventListener("keydown",e=>{if(e.key==="Enter")doSetUsername(input.value);});
+  btn.addEventListener("click",()=>doSetUsername(input.value));
+}
+
+function doSetUsername(val){
+  const name=val.trim();
+  if(!name)return;
+  setCurrentUsername(name);
+  const existing = loadUserData(name);
+  const user = existing.lastActiveDate ? existing : {
+    ...existing,
+    username: name,
+    streak: 1,
+    lastActiveDate: new Date().toDateString()
+  };
+  saveUserData(user);
+  pushToLeaderboard(user);
+  setState({user, screen:"home"});
+  fetchLeaderboard().then(lb=>setState({leaderboard:lb}));
+}
+
+function renderHome(){
+  const u=state.user;
+  const completedSet=new Set(u.lessonsCompleted||[]);
+
+  let lessonsHTML="";
+  LESSONS.forEach((l,i)=>{
+    const unlocked=i===0||completedSet.has(LESSONS[i-1].id);
+    const completed=completedSet.has(l.id);
+    const cls=completed?"completed":unlocked?"":"locked";
+    lessonsHTML+=`
+      <button class="lesson-card ${cls}" data-idx="${i}" ${!unlocked?'disabled':''}>
+        <div class="lesson-icon">${completed?"✅":unlocked?l.icon:"🔒"}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:16px;font-weight:800">${l.title}</div>
+          <div style="color:var(--dim);font-size:13px;font-weight:600;margin-top:2px">${l.desc}</div>
+        </div>
+        <div style="color:var(--gold);font-size:12px;font-weight:800;flex-shrink:0">+${l.xp} XP</div>
+      </button>`;
+  });
+
+  let lbHTML="";
+  if(!firebaseReady){
+    lbHTML=`<div style="text-align:center;padding:40px 20px;color:var(--dim)">
+      <div style="font-size:36px;margin-bottom:12px">🌐</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:8px">Leaderboard available when hosted</div>
+      <div style="font-size:13px;line-height:1.5">The shared leaderboard will work once this file is hosted on a website (GitHub Pages, Netlify, etc). Progress saves locally in the meantime!</div>
+    </div>`;
+  } else if(state.leaderboard.length===0){
+    lbHTML=`<div style="text-align:center;padding:40px;color:var(--dim);font-size:15px">No learners yet. Be the first!</div>`;
+  } else {
+    state.leaderboard.forEach((entry,i)=>{
+      const medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
+      const isMe=entry.name===u.username;
+      lbHTML+=`
+        <div class="lb-row ${isMe?'is-me':''}">
+          <span style="font-size:${i<3?'24px':'16px'};width:36px;text-align:center;color:var(--dim);font-weight:800">${medal}</span>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:800">${entry.name} ${isMe?'<span style="color:var(--green);font-size:12px">(you)</span>':''}</div>
+            <div style="color:var(--dim);font-size:12px;margin-top:2px">${entry.lessons} lessons · 🔥 ${entry.streak}</div>
+          </div>
+          <div style="color:var(--gold);font-weight:800;font-size:15px">⚡ ${entry.xp}</div>
+        </div>`;
+    });
+    lbHTML+=`<button id="refreshLB" class="btn-secondary" style="margin-top:10px;font-size:14px">↻ Refresh</button>`;
+  }
+
+  const pct=Math.round((u.lessonsCompleted||[]).length/LESSONS.length*100);
+
+  app.innerHTML=`
+    <div class="screen" style="padding-bottom:80px">
+      <div style="padding:16px 20px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:22px">🌍</span>
+          <span style="font-family:var(--display);color:var(--green);font-weight:800;font-size:19px">Parli Aspo</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span class="badge badge-streak">🔥 ${u.streak||0}</span>
+          <span class="badge badge-xp">⚡ ${u.xp||0} XP</span>
+        </div>
+      </div>
+      <div style="padding:14px 20px 8px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="color:var(--dim);font-size:14px">Bona yo, <span style="color:var(--text);font-weight:800">${u.username}</span>!</div>
+            <div style="color:var(--dim);font-size:12px;margin-top:4px">${(u.lessonsCompleted||[]).length}/${LESSONS.length} lessons completed</div>
+          </div>
+          <button id="switchUserBtn" style="background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:6px 12px;color:var(--dim);font-size:12px;font-weight:700">Switch User</button>
+        </div>
+        <div style="margin-top:8px" class="progress-track"><div class="progress-fill" style="width:${pct}%;background:var(--gold)"></div></div>
+      </div>
+      <div class="tab-bar">
+        <button class="tab-btn ${state.tab==='learn'?'active':''}" data-tab="learn">📚 LEARN</button>
+        <button class="tab-btn ${state.tab==='leaderboard'?'active':''}" data-tab="leaderboard">🏆 LEADERBOARD</button>
+      </div>
+      <div style="padding:16px 20px;${state.tab==='learn'?'':'display:none'}" id="learnTab">${lessonsHTML}</div>
+      <div style="padding:16px 20px;${state.tab==='leaderboard'?'':'display:none'}" id="lbTab">${lbHTML}</div>
+    </div>`;
+
+  // Events
+  document.querySelectorAll(".tab-btn").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      setState({tab:btn.dataset.tab});
+      if(btn.dataset.tab==="leaderboard") fetchLeaderboard().then(lb=>setState({leaderboard:lb}));
+    });
+  });
+  document.querySelectorAll(".lesson-card:not(.locked)").forEach(card=>{
+    card.addEventListener("click",()=>startLesson(parseInt(card.dataset.idx)));
+  });
+  const refreshBtn=document.getElementById("refreshLB");
+  if(refreshBtn) refreshBtn.addEventListener("click",()=>fetchLeaderboard().then(lb=>setState({leaderboard:lb})));
+  document.getElementById("switchUserBtn").addEventListener("click",()=>{
+    setCurrentUsername("");
+    setState({screen:"username", user:{username:"",xp:0,streak:0,lessonsCompleted:[],lastActiveDate:null}});
+  });
+}
+
+function startLesson(idx){
+  const lesson=LESSONS[idx];
+  const exercises=generateExercises(lesson.id);
+  const ex=exercises[0];
+  setState({
+    screen:"lesson",lesson,exercises,exIdx:0,correct:0,hearts:3,accXP:0,
+    mcSelected:null,mcAnswered:false,
+    matchSelectedLeft:null,matchMatched:[],matchWrong:null,
+    matchShuffledRight:ex.type==="match"?shuffle(ex.pairs.map(p=>p.right)):[],
+    fillInput:"",fillAnswered:false,fillCorrect:false,
+    woSelected:[],woAvailable:ex.type==="wordOrder"?[...ex.shuffled]:[],woAnswered:false,woCorrect:false,
+  });
+}
+
+function renderLesson(){
+  const ex=state.exercises[state.exIdx];
+  const pct=state.exIdx/state.exercises.length*100;
+  const heartsHTML=[...Array(3)].map((_,i)=>`<span style="font-size:20px;opacity:${i<state.hearts?1:0.2}">❤️</span>`).join("");
+
+  let exHTML="";
+  if(ex.type==="mc") exHTML=renderMC(ex);
+  else if(ex.type==="match") exHTML=renderMatch(ex);
+  else if(ex.type==="fill") exHTML=renderFill(ex);
+  else if(ex.type==="wordOrder") exHTML=renderWordOrder(ex);
+
+  app.innerHTML=`
+    <div class="screen" style="padding:16px 16px 100px 16px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+        <button id="closeBtn" style="background:none;color:var(--dim);font-size:24px;padding:4px">✕</button>
+        <div style="flex:1" class="progress-track"><div class="progress-fill" style="width:${pct}%;background:var(--green)"></div></div>
+        <div style="display:flex;gap:2px">${heartsHTML}</div>
+      </div>
+      <div style="max-width:480px;margin:0 auto" class="fade-up">${exHTML}</div>
+    </div>`;
+
+  document.getElementById("closeBtn").addEventListener("click",()=>setState({screen:"home"}));
+  if(ex.type==="mc") bindMC(ex);
+  else if(ex.type==="match") bindMatch(ex);
+  else if(ex.type==="fill") bindFill(ex);
+  else if(ex.type==="wordOrder") bindWordOrder(ex);
+}
+
+// Multiple Choice
+function renderMC(ex){
+  const optsHTML=ex.options.map((opt,i)=>{
+    let cls="opt-btn";
+    if(state.mcAnswered){
+      if(opt===ex.correct) cls+=" correct";
+      else if(opt===state.mcSelected&&opt!==ex.correct) cls+=" wrong";
+      else if(opt!==ex.correct) cls+=" faded";
+    }
+    return `<button class="${cls}" data-opt="${i}" style="animation-delay:${i*0.05}s">${opt}</button>`;
+  }).join("");
+
+  let noteHTML="";
+  if(state.mcAnswered&&ex.note) noteHTML=`<div style="margin-top:14px;color:var(--blue);font-size:13px;font-style:italic;font-weight:600">💡 ${ex.note}</div>`;
+  if(state.mcAnswered&&ex.pr) noteHTML+=`<div class="pronun">🔊 ${ex.paWord}: ${ex.pr}</div>`;
+
+  return `<div style="font-size:20px;font-weight:800;margin-bottom:24px;line-height:1.4">${ex.prompt}</div>
+    <div style="display:flex;flex-direction:column;gap:10px">${optsHTML}</div>${noteHTML}`;
+}
+function bindMC(ex){
+  if(state.mcAnswered) return;
+  document.querySelectorAll(".opt-btn").forEach((btn,i)=>{
+    btn.addEventListener("click",()=>{
+      if(state.mcAnswered)return;
+      const opt=ex.options[i];
+      state.mcSelected=opt;
+      state.mcAnswered=true;
+      render();
+      setTimeout(()=>handleAnswer(opt===ex.correct),900);
+    });
+  });
+}
+
+// Matching
+function renderMatch(ex){
+  const leftHTML=ex.pairs.map((p,i)=>{
+    const matched=state.matchMatched.find(m=>m.left===p.left);
+    const selected=state.matchSelectedLeft===p.left;
+    const wrong=state.matchWrong&&state.matchWrong.left===p.left;
+    let cls="match-btn";
+    if(matched)cls+=" matched";else if(wrong)cls+=" wrong-match";else if(selected)cls+=" selected";
+    return `<button class="${cls}" data-side="left" data-idx="${i}">${p.left}</button>`;
+  }).join("");
+  const rightHTML=state.matchShuffledRight.map((r,i)=>{
+    const matched=state.matchMatched.find(m=>m.right===r);
+    const wrong=state.matchWrong&&state.matchWrong.right===r;
+    let cls="match-btn";
+    if(matched)cls+=" matched";else if(wrong)cls+=" wrong-match";
+    return `<button class="${cls}" data-side="right" data-idx="${i}">${r}</button>`;
+  }).join("");
+
+  return `<div style="font-size:20px;font-weight:800;margin-bottom:24px">Match the pairs</div>
+    <div style="display:flex;gap:12px">
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px">${leftHTML}</div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px">${rightHTML}</div>
+    </div>`;
+}
+function bindMatch(ex){
+  document.querySelectorAll("[data-side='left']").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const i=parseInt(btn.dataset.idx);
+      const left=ex.pairs[i].left;
+      if(state.matchMatched.find(m=>m.left===left))return;
+      state.matchSelectedLeft=left;
+      state.matchWrong=null;
+      render();
+    });
+  });
+  document.querySelectorAll("[data-side='right']").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      if(!state.matchSelectedLeft)return;
+      const right=state.matchShuffledRight[parseInt(btn.dataset.idx)];
+      if(state.matchMatched.find(m=>m.right===right))return;
+      const pair=ex.pairs.find(p=>p.left===state.matchSelectedLeft&&p.right===right);
+      if(pair){
+        state.matchMatched=[...state.matchMatched,pair];
+        state.matchSelectedLeft=null;
+        render();
+        if(state.matchMatched.length===ex.pairs.length) setTimeout(()=>handleAnswer(true),600);
+      } else {
+        state.matchWrong={left:state.matchSelectedLeft,right};
+        render();
+        setTimeout(()=>{state.matchWrong=null;state.matchSelectedLeft=null;render();},700);
+      }
+    });
+  });
+}
+
+// Fill in blank
+function renderFill(ex){
+  let feedbackHTML="";
+  if(state.fillAnswered&&!state.fillCorrect){
+    feedbackHTML=`<div style="margin-top:12px;color:var(--red);font-size:14px;font-weight:700">Correct answer: <span style="color:var(--green)">${ex.correct}</span></div>`;
+  }
+  const borderColor=state.fillAnswered?(state.fillCorrect?"var(--green)":"var(--red)"):"var(--border)";
+  const bgColor=state.fillAnswered?(state.fillCorrect?"var(--ok)":"var(--bad)"):"var(--input)";
+
+  return `<div style="font-size:20px;font-weight:800;margin-bottom:24px">${ex.prompt}</div>
+    <div style="display:flex;gap:10px">
+      <input id="fillInput" type="text" value="${state.fillInput}" placeholder="Type your answer..." autocomplete="off" autocapitalize="off"
+        ${state.fillAnswered?'disabled':''}
+        style="flex:1;padding:14px 16px;background:${bgColor};border:2.5px solid ${borderColor};border-radius:var(--radius);
+        color:var(--text);font-size:16px;font-weight:700">
+      ${!state.fillAnswered?'<button id="fillCheck" class="btn-primary" style="width:auto;padding:14px 20px;font-size:15px">CHECK</button>':''}
+    </div>${feedbackHTML}`;
+}
+function bindFill(ex){
+  if(state.fillAnswered)return;
+  const input=document.getElementById("fillInput");
+  const btn=document.getElementById("fillCheck");
+  input.focus();
+  input.addEventListener("input",e=>{state.fillInput=e.target.value;});
+  input.addEventListener("keydown",e=>{if(e.key==="Enter")doFillCheck(ex);});
+  if(btn)btn.addEventListener("click",()=>doFillCheck(ex));
+}
+function doFillCheck(ex){
+  if(state.fillAnswered||!state.fillInput.trim())return;
+  const correct=state.fillInput.trim().toLowerCase()===ex.correct.toLowerCase();
+  state.fillAnswered=true;
+  state.fillCorrect=correct;
+  render();
+  setTimeout(()=>handleAnswer(correct),1200);
+}
+
+// Word Order
+function renderWordOrder(ex){
+  const selectedHTML=state.woSelected.length===0
+    ?`<span style="color:var(--dim);font-size:14px;padding:4px">Tap words to build the sentence...</span>`
+    :state.woSelected.map((w,i)=>`<button class="word-chip placed" data-rm="${i}">${w}</button>`).join("");
+
+  const availHTML=state.woAvailable.map((w,i)=>`<button class="word-chip" data-add="${i}">${w}</button>`).join("");
+
+  const answerBorder=state.woAnswered?(state.woCorrect?"var(--green)":"var(--red)"):"var(--border)";
+  const answerBg=state.woAnswered?(state.woCorrect?"var(--ok)":"var(--bad)"):"var(--input)";
+
+  let checkHTML="";
+  if(!state.woAnswered&&state.woSelected.length===ex.correctOrder.length){
+    checkHTML=`<button id="woCheck" class="btn-primary" style="margin-top:4px">CHECK</button>`;
+  }
+  let wrongHTML="";
+  if(state.woAnswered&&!state.woCorrect){
+    wrongHTML=`<div style="margin-top:8px;color:var(--red);font-size:14px;font-weight:700">Correct: <span style="color:var(--green)">${ex.correctOrder.join(" ")}</span></div>`;
+  }
+
+  return `<div style="font-size:20px;font-weight:800;margin-bottom:20px">${ex.prompt}</div>
+    <div style="min-height:52px;padding:10px 14px;background:${answerBg};border:2.5px dashed ${answerBorder};border-radius:var(--radius);display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">${selectedHTML}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">${availHTML}</div>
+    ${checkHTML}${wrongHTML}`;
+}
+function bindWordOrder(ex){
+  if(state.woAnswered)return;
+  document.querySelectorAll("[data-add]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const i=parseInt(btn.dataset.add);
+      const word=state.woAvailable[i];
+      state.woSelected=[...state.woSelected,word];
+      state.woAvailable=state.woAvailable.filter((_,j)=>j!==i);
+      render();
+    });
+  });
+  document.querySelectorAll("[data-rm]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      if(state.woAnswered)return;
+      const i=parseInt(btn.dataset.rm);
+      const word=state.woSelected[i];
+      state.woSelected=state.woSelected.filter((_,j)=>j!==i);
+      state.woAvailable=[...state.woAvailable,word];
+      render();
+    });
+  });
+  const checkBtn=document.getElementById("woCheck");
+  if(checkBtn) checkBtn.addEventListener("click",()=>{
+    const correct=state.woSelected.every((w,i)=>w===ex.correctOrder[i]);
+    state.woAnswered=true;
+    state.woCorrect=correct;
+    render();
+    setTimeout(()=>handleAnswer(correct),1000);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ANSWER HANDLER
+// ═══════════════════════════════════════════════════════════════
+function handleAnswer(correct){
+  let newHearts=state.hearts;
+  let accXP=state.accXP;
+
+  if(correct){
+    state.correct++;
+    accXP+=state.lesson.xp/state.exercises.length;
+  } else {
+    newHearts--;
+  }
+  state.hearts=newHearts;
+  state.accXP=accXP;
+
+  if(newHearts<=0){
+    setState({screen:"complete"});
+    return;
+  }
+
+  if(state.exIdx+1>=state.exercises.length){
+    // Lesson complete — save
+    const totalXP=Math.round(accXP);
+    const user={
+      ...state.user,
+      xp:state.user.xp+totalXP,
+      lessonsCompleted:[...new Set([...state.user.lessonsCompleted,state.lesson.id])],
+      lastActiveDate:new Date().toDateString()
+    };
+    saveUserData(user);
+    pushToLeaderboard(user);
+    state.user=user;
+    setState({screen:"complete"});
+  } else {
+    // Next exercise
+    const nextIdx=state.exIdx+1;
+    const nextEx=state.exercises[nextIdx];
+    setState({
+      exIdx:nextIdx,
+      mcSelected:null,mcAnswered:false,
+      matchSelectedLeft:null,matchMatched:[],matchWrong:null,
+      matchShuffledRight:nextEx.type==="match"?shuffle(nextEx.pairs.map(p=>p.right)):[],
+      fillInput:"",fillAnswered:false,fillCorrect:false,
+      woSelected:[],woAvailable:nextEx.type==="wordOrder"?[...nextEx.shuffled]:[],woAnswered:false,woCorrect:false,
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// COMPLETE SCREEN
+// ═══════════════════════════════════════════════════════════════
+function renderComplete(){
+  const passed=state.hearts>0;
+  const earnedXP=Math.round(state.accXP);
+
+  // Confetti for passed
+  let confettiHTML="";
+  if(passed){
+    const colors=["#58CC02","#FFC800","#1CB0F6","#CE82FF","#FF4B4B"];
+    for(let i=0;i<20;i++){
+      const color=colors[i%colors.length];
+      const left=Math.random()*100;
+      const delay=Math.random()*0.5;
+      const size=6+Math.random()*8;
+      confettiHTML+=`<div class="confetti-piece" style="left:${left}%;bottom:40%;width:${size}px;height:${size}px;background:${color};animation-delay:${delay}s;border-radius:${Math.random()>0.5?'50%':'2px'}"></div>`;
+    }
+  }
+
+  app.innerHTML=`
+    ${confettiHTML}
+    <div class="screen" style="display:flex;align-items:center;justify-content:center;padding:24px">
+      <div style="text-align:center;max-width:360px" class="pop">
+        <div style="font-size:72px;margin-bottom:16px">${passed?"🎉":"💔"}</div>
+        <div style="font-family:var(--display);font-size:28px;font-weight:800;color:${passed?'var(--green)':'var(--red)'};margin-bottom:8px">
+          ${passed?"Lesson Complete!":"Out of Hearts!"}
+        </div>
+        ${passed?`
+          <div style="color:var(--mid);font-size:16px;margin-bottom:20px">${state.correct}/${state.exercises.length} correct</div>
+          <div style="display:flex;justify-content:center;gap:12px;margin-bottom:28px">
+            <span class="badge badge-xp" style="font-size:15px;padding:6px 16px">⚡ +${earnedXP} XP</span>
+            <span class="badge badge-streak" style="font-size:15px;padding:6px 16px">🔥 ${state.user.streak}</span>
+          </div>
+        `:`
+          <div style="color:var(--dim);font-size:15px;margin-bottom:28px">No malbravi! Trati otra hapa.<br><span style="font-size:13px;color:var(--mid)">(Don't fear! Try again.)</span></div>
+        `}
+        <button id="completeBtn" class="btn-primary" style="margin-bottom:10px">${passed?"CONTINUE":"TRY AGAIN"}</button>
+        ${!passed?'<button id="backBtn" class="btn-secondary">BACK TO LESSONS</button>':''}
+      </div>
+    </div>`;
+
+  document.getElementById("completeBtn").addEventListener("click",()=>{
+    if(!passed){
+      const idx=LESSONS.findIndex(l=>l.id===state.lesson.id);
+      startLesson(idx);
+    } else {
+      setState({screen:"home"});
+      fetchLeaderboard().then(lb=>setState({leaderboard:lb}));
+    }
+  });
+  const backBtn=document.getElementById("backBtn");
+  if(backBtn) backBtn.addEventListener("click",()=>setState({screen:"home"}));
+}
+
+// Initial render
+render();
+</script>
+</body>
+</html>
