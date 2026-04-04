@@ -295,24 +295,90 @@ const VOCAB = {
     {pa:["Me","voli","agwo"],en:"I want water"},{pa:["La","femo","marsi","rapida"],en:"The woman walks quickly"},
     {pa:["Ki","yu","sabi"],en:"Do you know?"},{pa:["Me","ami","men","familo"],en:"I love my family"},
   ],
+  sentences2: [
+    {pa:["La","granda","elefano","agwi","agwo"],en:"The big elephant drinks water"},
+    {pa:["Men","matro","kusi","nutro","en","la","kuso"],en:"My mother cooks food in the kitchen"},
+    {pa:["Los","pa","marsi","a","la","parko"],en:"They walked to the park"},
+    {pa:["Ki","yu","povi","helpi","me"],en:"Can you help me?"},
+    {pa:["Me","fu","legi","nuva","libo"],en:"I will read a new book"},
+    {pa:["La","malgranda","gato","dormi","sur","la","sedo"],en:"The small cat sleeps on the chair"},
+    {pa:["Nos","voli","iri","a","la","playo"],en:"We want to go to the beach"},
+    {pa:["Kwe","yu","kasi"],en:"Where do you live?"},
+    {pa:["Men","patro","labori","en","la","ofiso"],en:"My father works in the office"},
+    {pa:["La","nebofelo","esi","bela","oyo"],en:"The weather is beautiful today"},
+  ],
+  sentences3: [
+    {pa:["Me","no","kapi","kwi","yu","esi","malfelisa"],en:"I don't understand why you are sad"},
+    {pa:["La","skolio","pa","skoli","nos","sur","la","stelos"],en:"The teacher taught us about the stars"},
+    {pa:["Si","yu","debi","nutri","malfrukos","for","yun","sano"],en:"Yes you should eat vegetables for your health"},
+    {pa:["Me","pa","trovi","men","klavo","sub","la","tablo"],en:"I found my key under the table"},
+    {pa:["Los","fu","kanti","kantos","en","la","parko"],en:"They will sing songs in the park"},
+    {pa:["Kwi","la","pipo","esi","malfelisa"],en:"Why is the dog sad"},
+    {pa:["Me","voli","deni","nuva","sapos","ma","me","no","havi","deno"],en:"I want to buy new shoes but I don't have money"},
+    {pa:["La","femo","kon","la","reda","ropo","esi","men","filo"],en:"The woman with the red clothes is my friend"},
+  ],
+  body: [
+    {pa:"korpo",en:"body",pr:"/kor.po/"},{pa:"krano",en:"head",pr:"/kra.no/"},{pa:"faso",en:"face",pr:"/fa.so/"},
+    {pa:"oklo",en:"eye",pr:"/ok.lo/"},{pa:"naso",en:"nose",pr:"/na.so/"},{pa:"buko",en:"mouth",pr:"/bu.ko/"},
+    {pa:"orelo",en:"ear",pr:"/o.re.lo/"},{pa:"mano",en:"hand",pr:"/ma.no/"},
+    {pa:"brako",en:"arm",pr:"/bra.ko/"},{pa:"gambo",en:"leg",pr:"/gam.bo/"},
+  ],
+  time: [
+    {pa:"oro",en:"hour/time",pr:"/o.ro/"},{pa:"orido",en:"minute",pr:"/o.ri.do/"},{pa:"oyo",en:"today",pr:"/o.yo/"},
+    {pa:"fuyo",en:"tomorrow",pr:"/fu.yo/"},{pa:"payo",en:"yesterday",pr:"/pa.yo/"},{pa:"semano",en:"week",pr:"/se.ma.no/"},
+    {pa:"luno",en:"month/moon",pr:"/lu.no/"},{pa:"ano",en:"year",pr:"/a.no/"},
+    {pa:"matino",en:"morning",pr:"/ma.ti.no/"},{pa:"spero",en:"evening",pr:"/spe.ro/"},
+  ],
+  feelings: [
+    {pa:"felisa",en:"happy",pr:"/fe.li.sa/"},{pa:"malfelisa",en:"sad",pr:"/mal.fe.li.sa/"},{pa:"nerva",en:"nervous",pr:"/ner.va/"},
+    {pa:"tranka",en:"calm",pr:"/tran.ka/"},{pa:"dorma",en:"sleepy",pr:"/dor.ma/"},{pa:"brava",en:"brave",pr:"/bra.va/"},
+    {pa:"malbravo",en:"fear",pr:"/mal.bra.vo/"},{pa:"feliso",en:"happiness",pr:"/fe.li.so/"},
+    {pa:"malfeliso",en:"sadness",pr:"/mal.fe.li.so/"},{pa:"amo",en:"love",pr:"/a.mo/"},
+  ],
+  compound: [
+    {pa:"panotendo",en:"bakery",note:"pano (bread) + tendo (store)"},{pa:"libotendo",en:"bookstore",note:"libo (book) + tendo (store)"},
+    {pa:"ropopuro",en:"washing machine",note:"ropo (clothes) + puro (cleaner)"},{pa:"dentopuro",en:"toothbrush",note:"dento (tooth) + puro (cleaner)"},
+    {pa:"kompoludo",en:"videogame",note:"kompo (computer) + ludo (game)"},{pa:"marsimoro",en:"zombie",note:"marsi (walk) + moro (death)"},
+    {pa:"morahumo",en:"ghost",note:"mora (dead) + humo (person)"},{pa:"karnotendo",en:"meat store",note:"karno (meat) + tendo (store)"},
+    {pa:"interligo",en:"internet",note:"inter (between) + ligo (connection)"},{pa:"felifaso",en:"smile",note:"feli (feel) + faso (face)"},
+  ],
+  diminutive: [
+    {pa:"pipido",en:"puppy",note:"pipo (dog) → pipido (small dog)"},{pa:"fogido",en:"flame",note:"fogo (fire) → fogido (small fire)"},
+    {pa:"fogidido",en:"spark",note:"fogido (flame) → fogidido (tiny flame)"},{pa:"orido",en:"minute",note:"oro (hour) → orido (small hour)"},
+    {pa:"oridido",en:"second",note:"orido (minute) → oridido (tiny minute)"},{pa:"selido",en:"ice cube",note:"selo (ice) → selido (small ice)"},
+    {pa:"wundido",en:"scrape",note:"wundo (wound) → wundido (small wound)"},{pa:"pipido",en:"puppy",note:"-ido = smaller version"},
+  ],
 };
 
 const LESSONS = [
+  // Basics (diff 1)
   {id:"greetings",title:"Basics 1",desc:"Greetings & essentials",icon:"👋",vocabKey:"greetings",xp:10,diff:1},
   {id:"pronouns",title:"Pronouns",desc:"I, you, we, they",icon:"👤",vocabKey:"pronouns",xp:10,diff:1},
   {id:"people",title:"People",desc:"Family & friends",icon:"👨‍👩‍👧‍👦",vocabKey:"people",xp:15,diff:1},
+  // Vocabulary (diff 2)
   {id:"colors",title:"Colors",desc:"All the colors",icon:"🎨",vocabKey:"colors",xp:15,diff:2},
   {id:"animals",title:"Animals",desc:"Creatures big & small",icon:"🐾",vocabKey:"animals",xp:15,diff:2},
   {id:"food",title:"Food & Drink",desc:"Eating & drinking",icon:"🍞",vocabKey:"food",xp:15,diff:2},
   {id:"objects",title:"Objects",desc:"Everyday things",icon:"🏠",vocabKey:"objects",xp:15,diff:2},
+  // Verbs & more vocab (diff 3)
   {id:"basicVerbs",title:"Verbs 1",desc:"Being & having",icon:"✨",vocabKey:"basicVerbs",xp:20,diff:3},
   {id:"actionVerbs",title:"Verbs 2",desc:"Actions & doing",icon:"🏃",vocabKey:"actionVerbs",xp:20,diff:3},
   {id:"adjectives",title:"Adjectives",desc:"Describing things",icon:"💎",vocabKey:"adjectives",xp:20,diff:3},
-  {id:"nature",title:"Nature",desc:"The natural world",icon:"🌿",vocabKey:"nature",xp:20,diff:3},
+  {id:"body",title:"Body",desc:"Parts of the body",icon:"🦴",vocabKey:"body",xp:20,diff:3},
+  // More vocab + grammar (diff 4)
+  {id:"nature",title:"Nature",desc:"The natural world",icon:"🌿",vocabKey:"nature",xp:20,diff:4},
+  {id:"time",title:"Time",desc:"Hours, days & seasons",icon:"🕐",vocabKey:"time",xp:20,diff:4},
+  {id:"feelings",title:"Feelings",desc:"Emotions & states",icon:"💗",vocabKey:"feelings",xp:20,diff:4},
   {id:"prepositions",title:"Prepositions",desc:"Where things are",icon:"📍",vocabKey:"prepositions",xp:20,diff:4},
-  {id:"grammar_mal",title:"mal- Prefix",desc:"Opposites with mal-",icon:"🔄",vocabKey:"grammar_mal",xp:25,diff:4},
+  // Grammar (diff 5)
+  {id:"grammar_mal",title:"mal- Prefix",desc:"Opposites with mal-",icon:"🔄",vocabKey:"grammar_mal",xp:25,diff:5},
   {id:"grammar_tense",title:"Past & Future",desc:"pa & fu tenses",icon:"⏳",vocabKey:"grammar_tense",xp:25,diff:5},
-  {id:"sentences",title:"Sentences",desc:"Build full sentences",icon:"📝",vocabKey:"sentences",xp:30,diff:5},
+  {id:"compound",title:"Compound Words",desc:"Combining words",icon:"🧩",vocabKey:"compound",xp:25,diff:5},
+  {id:"diminutive",title:"Diminutives",desc:"The -ido suffix",icon:"🔬",vocabKey:"diminutive",xp:25,diff:5},
+  // Sentences (diff 6-7)
+  {id:"sentences",title:"Sentences 1",desc:"Simple sentences",icon:"📝",vocabKey:"sentences",xp:30,diff:6},
+  {id:"sentences2",title:"Sentences 2",desc:"Longer sentences",icon:"📄",vocabKey:"sentences2",xp:35,diff:6},
+  {id:"sentences3",title:"Sentences 3",desc:"Complex sentences",icon:"📜",vocabKey:"sentences3",xp:40,diff:7},
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -382,33 +448,73 @@ async function fetchLeaderboard(){
 function generateExercises(lessonId){
   const lesson=LESSONS.find(l=>l.id===lessonId);
   const vocab=VOCAB[lesson.vocabKey];
-  const exercises=[];
+  const mcExercises=[];
+  const matchExercises=[];
+  const fillExercises=[];
+  const wordOrderExercises=[];
 
-  if(lessonId==="sentences"){
+  const isSentenceLesson = lessonId.startsWith("sentences");
+
+  if(isSentenceLesson){
     vocab.forEach(item=>{
-      exercises.push({type:"wordOrder",prompt:`Translate: "${item.en}"`,correctOrder:item.pa,shuffled:shuffle([...item.pa])});
+      wordOrderExercises.push({type:"wordOrder",prompt:`Translate: "${item.en}"`,correctOrder:item.pa,shuffled:shuffle([...item.pa])});
     });
     vocab.slice(0,5).forEach(item=>{
       const wrong=pick(vocab.filter(v=>v.en!==item.en),3).map(v=>v.en);
-      exercises.push({type:"mc",prompt:`What does "${item.pa.join(" ")}" mean?`,correct:item.en,options:shuffle([item.en,...wrong])});
+      mcExercises.push({type:"mc",prompt:`What does "${item.pa.join(" ")}" mean?`,correct:item.en,options:shuffle([item.en,...wrong])});
     });
   } else {
     const items=vocab.map(v=>({pa:v.pa,en:v.en,note:v.note,pr:v.pr}));
+
+    // MC: PA -> EN (learn the words first)
     items.forEach(item=>{
       const wrong=pick(items.filter(v=>v.en!==item.en),3).map(v=>v.en);
-      exercises.push({type:"mc",prompt:`What does "${item.pa}" mean?`,correct:item.en,options:shuffle([item.en,...wrong]),note:item.note,pr:item.pr,paWord:item.pa});
+      mcExercises.push({type:"mc",prompt:`What does "${item.pa}" mean?`,correct:item.en,options:shuffle([item.en,...wrong]),note:item.note,pr:item.pr,paWord:item.pa});
     });
+
+    // MC: EN -> PA (reinforce)
     items.slice(0,5).forEach(item=>{
       const wrong=pick(items.filter(v=>v.pa!==item.pa),3).map(v=>v.pa);
-      exercises.push({type:"mc",prompt:`How do you say "${item.en}" in Parli Aspo?`,correct:item.pa,options:shuffle([item.pa,...wrong])});
+      mcExercises.push({type:"mc",prompt:`How do you say "${item.en}" in Parli Aspo?`,correct:item.pa,options:shuffle([item.pa,...wrong])});
     });
+
+    // Matching
     const matchItems=pick(items,4);
-    exercises.push({type:"match",pairs:matchItems.map(v=>({left:v.pa,right:v.en}))});
+    matchExercises.push({type:"match",pairs:matchItems.map(v=>({left:v.pa,right:v.en}))});
+
+    // Mini sentence building using lesson vocab + common words
+    const miniSentences = buildMiniSentences(items, lessonId);
+    miniSentences.forEach(s => wordOrderExercises.push(s));
+
+    // Fill in blank (last — user has seen words by now)
     items.slice(0,3).forEach(item=>{
-      exercises.push({type:"fill",prompt:`"${item.en}" in Parli Aspo is:`,correct:item.pa.toLowerCase()});
+      fillExercises.push({type:"fill",prompt:`"${item.en}" in Parli Aspo is:`,correct:item.pa.toLowerCase()});
     });
   }
-  return shuffle(exercises).slice(0,10);
+
+  // ORDER: MC first, then matching, then word order, then fill-blank
+  const ordered = [...shuffle(mcExercises).slice(0,5), ...matchExercises, ...shuffle(wordOrderExercises).slice(0,3), ...shuffle(fillExercises).slice(0,2)];
+  return ordered.slice(0,12);
+}
+
+// Generate mini sentence-building exercises from vocab words
+function buildMiniSentences(items, lessonId){
+  const sentences=[];
+  const templates=[
+    {en:(w)=>`The ${w.en} is here`, pa:(w)=>["La",w.pa,"esi","am"]},
+    {en:(w)=>`I see the ${w.en}`, pa:(w)=>["Me","vidi","la",w.pa]},
+    {en:(w)=>`I want ${w.en}`, pa:(w)=>["Me","voli",w.pa]},
+    {en:(w)=>`I have ${w.en}`, pa:(w)=>["Me","havi",w.pa]},
+  ];
+  // Pick 2 random items and 2 random templates
+  const chosen = pick(items,2);
+  const tmpl = pick(templates,2);
+  chosen.forEach((item,i)=>{
+    const t=tmpl[i%tmpl.length];
+    const pa=t.pa(item);
+    sentences.push({type:"wordOrder",prompt:`Translate: "${t.en(item)}"`,correctOrder:pa,shuffled:shuffle([...pa])});
+  });
+  return sentences;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -583,7 +689,7 @@ function renderHome(){
       <div style="padding:14px 20px 8px">
         <div style="display:flex;align-items:center;justify-content:space-between">
           <div>
-            <div style="color:var(--dim);font-size:14px">Bona yo, <span style="color:var(--text);font-weight:800">${u.username}</span>!</div>
+            <div style="color:var(--dim);font-size:14px">Bonayo, <span style="color:var(--text);font-weight:800">${u.username}</span>!</div>
             <div style="color:var(--dim);font-size:12px;margin-top:4px">${(u.lessonsCompleted||[]).length}/${LESSONS.length} lessons completed</div>
           </div>
           <button id="switchUserBtn" style="background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:6px 12px;color:var(--dim);font-size:12px;font-weight:700">Switch User</button>
