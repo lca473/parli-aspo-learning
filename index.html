@@ -198,157 +198,224 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// VOCABULARY
+// VOCABULARY — Organized by lesson, drawn from official PA Dictionary
 // ═══════════════════════════════════════════════════════════════
-const VOCAB = {
-  greetings: [
-    {pa:"grati",en:"please/thank you",pr:"/gra.ti/"},
-    {pa:"bona",en:"good",pr:"/bo.na/"},
-    {pa:"skusa",en:"sorry",pr:"/sku.sa/"},
-    {pa:"si",en:"yes",pr:"/si/"},
-    {pa:"no",en:"no",pr:"/no/"},
-    {pa:"bem",en:"well (interjection)",pr:"/bem/"},
-    {pa:"am",en:"here",pr:"/am/"},
-    {pa:"faram",en:"there",pr:"/fa.ram/"},
-  ],
-  pronouns: [
-    {pa:"me",en:"I/me",pr:"/me/"},{pa:"yu",en:"you (singular)",pr:"/yu/"},{pa:"lo",en:"he/she/it",pr:"/lo/"},
-    {pa:"nos",en:"we/us",pr:"/nos/"},{pa:"yus",en:"you (plural)",pr:"/yus/"},{pa:"los",en:"they/them",pr:"/los/"},
-    {pa:"men",en:"my/mine",pr:"/men/"},{pa:"yun",en:"your/yours",pr:"/yun/"},
-  ],
-  people: [
-    {pa:"humo",en:"person",pr:"/hu.mo/"},{pa:"filo",en:"friend",pr:"/fi.lo/"},{pa:"familo",en:"family",pr:"/fa.mi.lo/"},
-    {pa:"patro",en:"father",pr:"/pa.tro/"},{pa:"matro",en:"mother",pr:"/ma.tro/"},{pa:"frato",en:"brother",pr:"/fra.to/"},
-    {pa:"yoyo",en:"sister",pr:"/yo.yo/"},{pa:"kido",en:"child",pr:"/ki.do/"},
-    {pa:"viro",en:"man",pr:"/vi.ro/"},{pa:"femo",en:"woman",pr:"/fe.mo/"},
-  ],
-  animals: [
-    {pa:"pipo",en:"dog",pr:"/pi.po/"},{pa:"gato",en:"cat",pr:"/ga.to/"},{pa:"pisko",en:"fish",pr:"/pis.ko/"},
-    {pa:"kavalo",en:"horse",pr:"/ka.va.lo/"},{pa:"pasero",en:"bird",pr:"/pa.se.ro/"},{pa:"bovo",en:"cow",pr:"/bo.vo/"},
-    {pa:"serpo",en:"snake",pr:"/ser.po/"},{pa:"elefano",en:"elephant",pr:"/e.le.fa.no/"},
-    {pa:"simo",en:"monkey",pr:"/si.mo/"},{pa:"galo",en:"chicken",pr:"/ga.lo/"},
-  ],
-  colors: [
-    {pa:"reda",en:"red",pr:"/re.da/"},{pa:"blua",en:"blue",pr:"/blu.a/"},{pa:"verda",en:"green",pr:"/ver.da/"},
-    {pa:"yela",en:"yellow",pr:"/ye.la/"},{pa:"negra",en:"black",pr:"/ne.gra/"},{pa:"blanka",en:"white",pr:"/blan.ka/"},
-    {pa:"orana",en:"orange",pr:"/o.ra.na/"},{pa:"purpa",en:"purple",pr:"/pur.pa/"},
-    {pa:"grisa",en:"gray",pr:"/gri.sa/"},{pa:"bruna",en:"brown",pr:"/bru.na/"},
-  ],
-  objects: [
-    {pa:"kaso",en:"house",pr:"/ka.so/"},{pa:"domo",en:"room",pr:"/do.mo/"},{pa:"porto",en:"door",pr:"/por.to/"},
-    {pa:"tablo",en:"table",pr:"/ta.blo/"},{pa:"sedo",en:"chair",pr:"/se.do/"},{pa:"kamo",en:"bed",pr:"/ka.mo/"},
-    {pa:"libo",en:"book",pr:"/li.bo/"},{pa:"telo",en:"phone",pr:"/te.lo/"},
-    {pa:"karo",en:"car",pr:"/ka.ro/"},{pa:"deno",en:"money",pr:"/de.no/"},
-  ],
-  food: [
-    {pa:"nutro",en:"food",pr:"/nu.tro/"},{pa:"pano",en:"bread",pr:"/pa.no/"},{pa:"agwo",en:"water",pr:"/a.gwo/"},
-    {pa:"lakto",en:"milk",pr:"/lak.to/"},{pa:"karno",en:"meat",pr:"/kar.no/"},{pa:"fruko",en:"fruit",pr:"/fru.ko/"},
-    {pa:"kafo",en:"coffee",pr:"/ka.fo/"},{pa:"teo",en:"tea",pr:"/te.o/"},
-    {pa:"ovo",en:"egg",pr:"/o.vo/"},{pa:"salo",en:"salt",pr:"/sa.lo/"},
-  ],
-  basicVerbs: [
-    {pa:"esi",en:"be/is/am",pr:"/e.si/"},{pa:"havi",en:"have",pr:"/ha.vi/"},{pa:"fari",en:"do/make",pr:"/fa.ri/"},
-    {pa:"iri",en:"go",pr:"/i.ri/"},{pa:"veni",en:"come",pr:"/ve.ni/"},{pa:"vidi",en:"see",pr:"/vi.di/"},
-    {pa:"sabi",en:"know",pr:"/sa.bi/"},{pa:"voli",en:"want",pr:"/vo.li/"},
-    {pa:"povi",en:"can",pr:"/po.vi/"},{pa:"debi",en:"should",pr:"/de.bi/"},
-  ],
-  actionVerbs: [
-    {pa:"nutri",en:"eat",pr:"/nu.tri/"},{pa:"agwi",en:"drink",pr:"/a.gwi/"},{pa:"kuri",en:"run",pr:"/ku.ri/"},
-    {pa:"marsi",en:"walk",pr:"/mar.si/"},{pa:"dormi",en:"sleep",pr:"/dor.mi/"},{pa:"labori",en:"work",pr:"/la.bo.ri/"},
-    {pa:"ludi",en:"play",pr:"/lu.di/"},{pa:"legi",en:"read",pr:"/le.gi/"},
-    {pa:"plumi",en:"write",pr:"/plu.mi/"},{pa:"parli",en:"speak",pr:"/par.li/"},
-  ],
-  adjectives: [
-    {pa:"bela",en:"beautiful",pr:"/be.la/"},{pa:"granda",en:"big",pr:"/gran.da/"},{pa:"malgranda",en:"small",pr:"/mal.gran.da/"},
-    {pa:"rapida",en:"fast",pr:"/ra.pi.da/"},{pa:"malrapida",en:"slow",pr:"/mal.ra.pi.da/"},{pa:"forta",en:"strong",pr:"/for.ta/"},
-    {pa:"felisa",en:"happy",pr:"/fe.li.sa/"},{pa:"malfelisa",en:"sad",pr:"/mal.fe.li.sa/"},
-    {pa:"nuva",en:"new",pr:"/nu.va/"},{pa:"fasila",en:"easy",pr:"/fa.si.la/"},
-  ],
-  nature: [
-    {pa:"suno",en:"sun",pr:"/su.no/"},{pa:"luno",en:"moon",pr:"/lu.no/"},{pa:"stelo",en:"star",pr:"/ste.lo/"},
-    {pa:"arbo",en:"tree",pr:"/ar.bo/"},{pa:"floro",en:"flower",pr:"/flo.ro/"},{pa:"rivo",en:"river",pr:"/ri.vo/"},
-    {pa:"foro",en:"forest",pr:"/fo.ro/"},{pa:"monto",en:"mountain",pr:"/mon.to/"},
-    {pa:"nebo",en:"sky",pr:"/ne.bo/"},{pa:"lago",en:"lake",pr:"/la.go/"},
-  ],
-  prepositions: [
-    {pa:"en",en:"in",pr:"/en/"},{pa:"a",en:"to/at",pr:"/a/"},{pa:"sur",en:"on/about",pr:"/sur/"},
-    {pa:"sub",en:"under",pr:"/sub/"},{pa:"kon",en:"with",pr:"/kon/"},{pa:"sen",en:"without",pr:"/sen/"},
-    {pa:"for",en:"for",pr:"/for/"},{pa:"de",en:"of",pr:"/de/"},
-    {pa:"inter",en:"between",pr:"/in.ter/"},{pa:"serka",en:"next to/near",pr:"/ser.ka/"},
-  ],
-  grammar_mal: [
-    {pa:"malfilo",en:"enemy",note:"mal + filo (friend)"},{pa:"malgranda",en:"small",note:"mal + granda (big)"},
-    {pa:"malfelisa",en:"sad",note:"mal + felisa (happy)"},{pa:"malbela",en:"ugly",note:"mal + bela (beautiful)"},
-    {pa:"malfriga",en:"hot",note:"mal + friga (cold)"},{pa:"malnuva",en:"old",note:"mal + nuva (new)"},
-    {pa:"malpura",en:"dirty",note:"mal + pura (clean)"},{pa:"malforta",en:"weak",note:"mal + forta (strong)"},
-  ],
-  grammar_tense: [
-    {pa:"me vidi",en:"I see",note:"Present tense"},{pa:"me pa vidi",en:"I saw",note:"Past: pa + verb"},
-    {pa:"me fu vidi",en:"I will see",note:"Future: fu + verb"},{pa:"me pa nutri",en:"I ate",note:"Past: pa + verb"},
-    {pa:"me fu iri",en:"I will go",note:"Future: fu + verb"},{pa:"los pa veni",en:"they came",note:"Past: pa + verb"},
-    {pa:"nos fu ludi",en:"we will play",note:"Future: fu + verb"},{pa:"yu pa labori",en:"you worked",note:"Past: pa + verb"},
-  ],
-  sentences: [
-    {pa:["Me","esi","bona"],en:"I am good"},{pa:["La","pipo","esi","granda"],en:"The dog is big"},
-    {pa:["Me","vidi","la","gato"],en:"I see the cat"},{pa:["Yu","havi","nuva","libo"],en:"You have a new book"},
-    {pa:["Nos","nutri","pano"],en:"We eat bread"},{pa:["La","kaso","esi","bela"],en:"The house is beautiful"},
-    {pa:["Me","voli","agwo"],en:"I want water"},{pa:["La","femo","marsi","rapida"],en:"The woman walks quickly"},
-    {pa:["Ki","yu","sabi"],en:"Do you know?"},{pa:["Me","ami","men","familo"],en:"I love my family"},
-  ],
-  sentences2: [
-    {pa:["La","granda","elefano","agwi","agwo"],en:"The big elephant drinks water"},
-    {pa:["Men","matro","kusi","nutro","en","la","kuso"],en:"My mother cooks food in the kitchen"},
-    {pa:["Los","pa","marsi","a","la","parko"],en:"They walked to the park"},
-    {pa:["Ki","yu","povi","helpi","me"],en:"Can you help me?"},
-    {pa:["Me","fu","legi","nuva","libo"],en:"I will read a new book"},
-    {pa:["La","malgranda","gato","dormi","sur","la","sedo"],en:"The small cat sleeps on the chair"},
-    {pa:["Nos","voli","iri","a","la","playo"],en:"We want to go to the beach"},
-    {pa:["Kwe","yu","kasi"],en:"Where do you live?"},
-    {pa:["Men","patro","labori","en","la","ofiso"],en:"My father works in the office"},
-    {pa:["La","nebofelo","esi","bela","oyo"],en:"The weather is beautiful today"},
-  ],
-  sentences3: [
-    {pa:["Me","no","kapi","kwi","yu","esi","malfelisa"],en:"I don't understand why you are sad"},
-    {pa:["La","skolio","pa","skoli","nos","sur","la","stelos"],en:"The teacher taught us about the stars"},
-    {pa:["Si","yu","debi","nutri","malfrukos","for","yun","sano"],en:"Yes you should eat vegetables for your health"},
-    {pa:["Me","pa","trovi","men","klavo","sub","la","tablo"],en:"I found my key under the table"},
-    {pa:["Los","fu","kanti","kantos","en","la","parko"],en:"They will sing songs in the park"},
-    {pa:["Kwi","la","pipo","esi","malfelisa"],en:"Why is the dog sad"},
-    {pa:["Me","voli","deni","nuva","sapos","ma","me","no","havi","deno"],en:"I want to buy new shoes but I don't have money"},
-    {pa:["La","femo","kon","la","reda","ropo","esi","men","filo"],en:"The woman with the red clothes is my friend"},
-  ],
-  body: [
-    {pa:"korpo",en:"body",pr:"/kor.po/"},{pa:"krano",en:"head",pr:"/kra.no/"},{pa:"faso",en:"face",pr:"/fa.so/"},
-    {pa:"oklo",en:"eye",pr:"/ok.lo/"},{pa:"naso",en:"nose",pr:"/na.so/"},{pa:"buko",en:"mouth",pr:"/bu.ko/"},
-    {pa:"orelo",en:"ear",pr:"/o.re.lo/"},{pa:"mano",en:"hand",pr:"/ma.no/"},
-    {pa:"brako",en:"arm",pr:"/bra.ko/"},{pa:"gambo",en:"leg",pr:"/gam.bo/"},
-  ],
-  time: [
-    {pa:"oro",en:"hour/time",pr:"/o.ro/"},{pa:"orido",en:"minute",pr:"/o.ri.do/"},{pa:"oyo",en:"today",pr:"/o.yo/"},
-    {pa:"fuyo",en:"tomorrow",pr:"/fu.yo/"},{pa:"payo",en:"yesterday",pr:"/pa.yo/"},{pa:"semano",en:"week",pr:"/se.ma.no/"},
-    {pa:"luno",en:"month/moon",pr:"/lu.no/"},{pa:"ano",en:"year",pr:"/a.no/"},
-    {pa:"matino",en:"morning",pr:"/ma.ti.no/"},{pa:"spero",en:"evening",pr:"/spe.ro/"},
-  ],
-  feelings: [
-    {pa:"felisa",en:"happy",pr:"/fe.li.sa/"},{pa:"malfelisa",en:"sad",pr:"/mal.fe.li.sa/"},{pa:"nerva",en:"nervous",pr:"/ner.va/"},
-    {pa:"tranka",en:"calm",pr:"/tran.ka/"},{pa:"dorma",en:"sleepy",pr:"/dor.ma/"},{pa:"brava",en:"brave",pr:"/bra.va/"},
-    {pa:"malbravo",en:"fear",pr:"/mal.bra.vo/"},{pa:"feliso",en:"happiness",pr:"/fe.li.so/"},
-    {pa:"malfeliso",en:"sadness",pr:"/mal.fe.li.so/"},{pa:"amo",en:"love",pr:"/a.mo/"},
-  ],
-  compound: [
-    {pa:"panotendo",en:"bakery",note:"pano (bread) + tendo (store)"},{pa:"libotendo",en:"bookstore",note:"libo (book) + tendo (store)"},
-    {pa:"ropopuro",en:"washing machine",note:"ropo (clothes) + puro (cleaner)"},{pa:"dentopuro",en:"toothbrush",note:"dento (tooth) + puro (cleaner)"},
-    {pa:"kompoludo",en:"videogame",note:"kompo (computer) + ludo (game)"},{pa:"marsimoro",en:"zombie",note:"marsi (walk) + moro (death)"},
-    {pa:"morahumo",en:"ghost",note:"mora (dead) + humo (person)"},{pa:"karnotendo",en:"meat store",note:"karno (meat) + tendo (store)"},
-    {pa:"interligo",en:"internet",note:"inter (between) + ligo (connection)"},{pa:"felifaso",en:"smile",note:"feli (feel) + faso (face)"},
-  ],
-  diminutive: [
-    {pa:"pipido",en:"puppy",note:"pipo (dog) → pipido (small dog)"},{pa:"fogido",en:"flame",note:"fogo (fire) → fogido (small fire)"},
-    {pa:"fogidido",en:"spark",note:"fogido (flame) → fogidido (tiny flame)"},{pa:"orido",en:"minute",note:"oro (hour) → orido (small hour)"},
-    {pa:"oridido",en:"second",note:"orido (minute) → oridido (tiny minute)"},{pa:"selido",en:"ice cube",note:"selo (ice) → selido (small ice)"},
-    {pa:"wundido",en:"scrape",note:"wundo (wound) → wundido (small wound)"},{pa:"nufemo",en:"girl",note:"nuva (new) + femo (woman)"},
-  ],
+const V = {
+  // UNIT 1: BASICS
+  greetings1:[{pa:"grati",en:"please/thank you"},{pa:"bona",en:"good"},{pa:"si",en:"yes"},{pa:"no",en:"no"},{pa:"skusa",en:"sorry"},{pa:"bem",en:"well (interjection)"},{pa:"am",en:"here"},{pa:"faram",en:"there"}],
+  pronouns1:[{pa:"me",en:"I/me"},{pa:"yu",en:"you"},{pa:"lo",en:"he/she/it"},{pa:"nos",en:"we/us"},{pa:"los",en:"they/them"},{pa:"yus",en:"you (plural)"}],
+  possessives:[{pa:"men",en:"my/mine"},{pa:"yun",en:"your/yours"},{pa:"lon",en:"his/her/its"},{pa:"nosin",en:"our/ours"},{pa:"losin",en:"their/theirs"},{pa:"yusin",en:"your/yours (plural)"}],
+  people1:[{pa:"humo",en:"person"},{pa:"filo",en:"friend"},{pa:"familo",en:"family"},{pa:"kido",en:"child"},{pa:"viro",en:"man"},{pa:"femo",en:"woman"}],
+  people2:[{pa:"patro",en:"father"},{pa:"matro",en:"mother"},{pa:"frato",en:"brother"},{pa:"yoyo",en:"sister"},{pa:"asawo",en:"spouse"},{pa:"bebo",en:"baby"},{pa:"nufemo",en:"girl"}],
+
+  // UNIT 2: BASICS 2
+  colors1:[{pa:"reda",en:"red"},{pa:"blua",en:"blue"},{pa:"verda",en:"green"},{pa:"yela",en:"yellow"},{pa:"negra",en:"black"},{pa:"blanka",en:"white"}],
+  colors2:[{pa:"orana",en:"orange"},{pa:"purpa",en:"purple"},{pa:"grisa",en:"gray"},{pa:"bruna",en:"brown"},{pa:"kroma",en:"color (adj.)"},{pa:"kromo",en:"color (noun)"}],
+  numbers:[{pa:"sera",en:"zero"},{pa:"una",en:"one"},{pa:"dua",en:"two"},{pa:"tria",en:"three"},{pa:"kwara",en:"four"},{pa:"kina",en:"five"},{pa:"sesa",en:"six"},{pa:"sepa",en:"seven"},{pa:"okta",en:"eight"},{pa:"nova",en:"nine"},{pa:"deka",en:"ten"}],
+  articles:[{pa:"la",en:"the"},{pa:"lan",en:"this/these"},{pa:"farlan",en:"that/those"},{pa:"ke",en:"that (conj.)"},{pa:"ki",en:"question particle"},{pa:"kwa",en:"what"},{pa:"kwo",en:"who"},{pa:"kwe",en:"where"},{pa:"kwen",en:"when"},{pa:"kwi",en:"why"}],
+
+  // UNIT 3: FOOD & DRINK
+  food1:[{pa:"nutro",en:"food"},{pa:"pano",en:"bread"},{pa:"karno",en:"meat"},{pa:"fruko",en:"fruit"},{pa:"malfruko",en:"vegetable"},{pa:"ovo",en:"egg"}],
+  food2:[{pa:"agwo",en:"water"},{pa:"lakto",en:"milk"},{pa:"kafo",en:"coffee"},{pa:"teo",en:"tea"},{pa:"salo",en:"salt"},{pa:"sukro",en:"sugar"},{pa:"spiso",en:"spice"},{pa:"oleo",en:"oil"}],
+  cooking:[{pa:"kusi",en:"cook"},{pa:"kuso",en:"kitchen"},{pa:"nutri",en:"eat"},{pa:"agwi",en:"drink"},{pa:"gusti",en:"taste"},{pa:"gusto",en:"flavor"},{pa:"kuto",en:"knife"},{pa:"garfo",en:"fork"},{pa:"spuno",en:"spoon"},{pa:"plato",en:"plate"},{pa:"taso",en:"cup"}],
+
+  // UNIT 4: ANIMALS
+  animals1:[{pa:"pipo",en:"dog"},{pa:"gato",en:"cat"},{pa:"pisko",en:"fish"},{pa:"pasero",en:"bird"},{pa:"kavalo",en:"horse"},{pa:"bovo",en:"cow"}],
+  animals2:[{pa:"elefano",en:"elephant"},{pa:"simo",en:"monkey"},{pa:"galo",en:"chicken"},{pa:"lano",en:"sheep"},{pa:"kapro",en:"goat"},{pa:"pordo",en:"pig"},{pa:"kamelo",en:"camel"}],
+  animals3:[{pa:"serpo",en:"snake"},{pa:"insekto",en:"insect"},{pa:"arano",en:"spider"},{pa:"abelo",en:"bee"},{pa:"formiko",en:"ant"},{pa:"musko",en:"fly"},{pa:"sauro",en:"dinosaur"}],
+
+  // UNIT 5: HOME & OBJECTS
+  home1:[{pa:"kaso",en:"house"},{pa:"domo",en:"room"},{pa:"porto",en:"door"},{pa:"feno",en:"window"},{pa:"muro",en:"wall"},{pa:"piso",en:"floor"},{pa:"teko",en:"ceiling"}],
+  home2:[{pa:"tablo",en:"table"},{pa:"sedo",en:"chair"},{pa:"kamo",en:"bed"},{pa:"sofo",en:"sofa"},{pa:"levo",en:"elevator"},{pa:"marsos",en:"stairs"}],
+  objects1:[{pa:"libo",en:"book"},{pa:"telo",en:"phone"},{pa:"kompo",en:"computer"},{pa:"plumo",en:"pen"},{pa:"papelo",en:"paper"},{pa:"karto",en:"card"},{pa:"klavo",en:"key"}],
+  objects2:[{pa:"deno",en:"money"},{pa:"sako",en:"bag"},{pa:"ropo",en:"clothes"},{pa:"sapo",en:"shoe"},{pa:"goro",en:"hat"},{pa:"tolo",en:"towel"},{pa:"foto",en:"picture"}],
+
+  // UNIT 6: BASIC VERBS
+  verbs1:[{pa:"esi",en:"be/is/am"},{pa:"havi",en:"have"},{pa:"fari",en:"do/make"},{pa:"iri",en:"go"},{pa:"veni",en:"come"},{pa:"vidi",en:"see"}],
+  verbs2:[{pa:"sabi",en:"know"},{pa:"voli",en:"want"},{pa:"povi",en:"can"},{pa:"debi",en:"should"},{pa:"nedi",en:"need"},{pa:"aspi",en:"hope/expect"}],
+  verbs3:[{pa:"kuri",en:"run"},{pa:"marsi",en:"walk"},{pa:"dormi",en:"sleep"},{pa:"sedi",en:"sit"},{pa:"stari",en:"stand"},{pa:"puli",en:"jump"},{pa:"nadi",en:"swim"}],
+  verbs4:[{pa:"labori",en:"work"},{pa:"ludi",en:"play"},{pa:"legi",en:"read"},{pa:"plumi",en:"write"},{pa:"parli",en:"speak"},{pa:"kanti",en:"sing"},{pa:"dansi",en:"dance"}],
+
+  // UNIT 7: MORE VERBS
+  verbs5:[{pa:"pensi",en:"think"},{pa:"kredi",en:"believe"},{pa:"kapi",en:"understand"},{pa:"repensi",en:"remember"},{pa:"lerni",en:"learn"},{pa:"studi",en:"study"},{pa:"skoli",en:"teach"}],
+  verbs6:[{pa:"doni",en:"give"},{pa:"maldoni",en:"take"},{pa:"deni",en:"buy"},{pa:"vendi",en:"sell"},{pa:"sendi",en:"send"},{pa:"malsendi",en:"receive"},{pa:"kargi",en:"carry"}],
+  verbs7:[{pa:"ami",en:"love"},{pa:"feli",en:"feel"},{pa:"helpi",en:"help"},{pa:"trati",en:"try"},{pa:"buski",en:"search"},{pa:"trovi",en:"find"},{pa:"eleki",en:"choose"}],
+  verbs8:[{pa:"komensi",en:"start"},{pa:"fini",en:"finish"},{pa:"resti",en:"stay/stop/wait"},{pa:"dureli",en:"continue"},{pa:"kambi",en:"change"},{pa:"movi",en:"move"},{pa:"volvi",en:"return"}],
+
+  // UNIT 8: ADJECTIVES
+  adj1:[{pa:"bela",en:"beautiful"},{pa:"granda",en:"big"},{pa:"malgranda",en:"small"},{pa:"alta",en:"tall/high"},{pa:"malalta",en:"short/low"},{pa:"longa",en:"long"},{pa:"larga",en:"wide"}],
+  adj2:[{pa:"rapida",en:"fast"},{pa:"malrapida",en:"slow"},{pa:"forta",en:"strong"},{pa:"dura",en:"hard"},{pa:"maldura",en:"soft"},{pa:"fasila",en:"easy"},{pa:"malfasila",en:"difficult"}],
+  adj3:[{pa:"nuva",en:"new"},{pa:"malnuva",en:"old"},{pa:"pura",en:"clean"},{pa:"malpura",en:"dirty"},{pa:"friga",en:"cold"},{pa:"malfriga",en:"hot"},{pa:"agwa",en:"wet"},{pa:"seka",en:"dry"}],
+  adj4:[{pa:"felisa",en:"happy"},{pa:"malfelisa",en:"sad"},{pa:"tranka",en:"calm"},{pa:"nerva",en:"nervous"},{pa:"brava",en:"brave"},{pa:"kleva",en:"smart"},{pa:"rida",en:"funny"},{pa:"grava",en:"important"}],
+
+  // UNIT 9: NATURE & PLACES
+  nature1:[{pa:"suno",en:"sun"},{pa:"luno",en:"moon"},{pa:"stelo",en:"star"},{pa:"nebo",en:"sky"},{pa:"venaro",en:"wind"},{pa:"pluvo",en:"rain"},{pa:"malnebo",en:"storm"}],
+  nature2:[{pa:"arbo",en:"tree"},{pa:"floro",en:"flower"},{pa:"terfo",en:"grass"},{pa:"foro",en:"forest"},{pa:"roko",en:"rock"},{pa:"tero",en:"ground"},{pa:"aro",en:"air"}],
+  nature3:[{pa:"agwo",en:"water"},{pa:"rivo",en:"river"},{pa:"lago",en:"lake"},{pa:"maro",en:"sea"},{pa:"monto",en:"mountain"},{pa:"playo",en:"beach"},{pa:"selo",en:"ice"}],
+  places:[{pa:"urbo",en:"city"},{pa:"vilo",en:"village"},{pa:"strado",en:"street"},{pa:"parko",en:"park"},{pa:"skolo",en:"school"},{pa:"hospito",en:"hospital"},{pa:"ofiso",en:"office"},{pa:"tendo",en:"store"},{pa:"merko",en:"market"}],
+
+  // UNIT 10: BODY & HEALTH
+  body1:[{pa:"korpo",en:"body"},{pa:"krano",en:"head"},{pa:"faso",en:"face"},{pa:"oklo",en:"eye"},{pa:"naso",en:"nose"},{pa:"buko",en:"mouth"},{pa:"orelo",en:"ear"}],
+  body2:[{pa:"mano",en:"hand"},{pa:"fingro",en:"finger"},{pa:"brako",en:"arm"},{pa:"gambo",en:"leg"},{pa:"kiko",en:"foot"},{pa:"kolo",en:"neck"},{pa:"koro",en:"heart"},{pa:"nuro",en:"brain"}],
+  health:[{pa:"sana",en:"healthy"},{pa:"malsana",en:"sick"},{pa:"dola",en:"painful"},{pa:"doli",en:"hurt"},{pa:"febro",en:"fever"},{pa:"wundo",en:"wound"},{pa:"mediko",en:"medicine"},{pa:"doktio",en:"doctor"},{pa:"nursio",en:"nurse"}],
+
+  // UNIT 11: PREPOSITIONS & CONJUNCTIONS
+  preps1:[{pa:"en",en:"in"},{pa:"a",en:"to/at"},{pa:"sur",en:"on/about"},{pa:"sub",en:"under"},{pa:"kon",en:"with"},{pa:"sen",en:"without"}],
+  preps2:[{pa:"for",en:"for"},{pa:"de",en:"of"},{pa:"inter",en:"between"},{pa:"serka",en:"next to/near"},{pa:"far",en:"far"},{pa:"tru",en:"through"},{pa:"malen",en:"out"}],
+  conjunctions:[{pa:"y",en:"and"},{pa:"o",en:"or"},{pa:"ma",en:"but"},{pa:"si",en:"if/yes"},{pa:"forke",en:"because"},{pa:"sino",en:"unless"},{pa:"durel",en:"during/while"},{pa:"intera",en:"until"}],
+
+  // UNIT 12: TIME
+  time1:[{pa:"oro",en:"hour/time"},{pa:"orido",en:"minute"},{pa:"oridido",en:"second"},{pa:"oyo",en:"today"},{pa:"fuyo",en:"tomorrow"},{pa:"payo",en:"yesterday"},{pa:"nokto",en:"night"}],
+  time2:[{pa:"matino",en:"morning"},{pa:"spero",en:"evening"},{pa:"semano",en:"week"},{pa:"luno",en:"month"},{pa:"ano",en:"year"},{pa:"sesono",en:"season"}],
+  days:[{pa:"unayo",en:"Sunday"},{pa:"duayo",en:"Monday"},{pa:"triayo",en:"Tuesday"},{pa:"kwarayo",en:"Wednesday"},{pa:"kinayo",en:"Thursday"},{pa:"sesayo",en:"Friday"},{pa:"sepayo",en:"Saturday"}],
+  seasons:[{pa:"printemo",en:"spring"},{pa:"somero",en:"summer"},{pa:"autuno",en:"autumn"},{pa:"hivero",en:"winter"},{pa:"nebofelo",en:"weather"},{pa:"suna",en:"sunny"},{pa:"pluvi",en:"raining"}],
+
+  // UNIT 13: TRANSPORT & TRAVEL
+  transport:[{pa:"karo",en:"car"},{pa:"buso",en:"bus"},{pa:"tramo",en:"train"},{pa:"aviono",en:"airplane"},{pa:"boto",en:"boat"},{pa:"vapo",en:"ship"},{pa:"biklo",en:"bicycle"},{pa:"moto",en:"motorcycle"}],
+  travel:[{pa:"kari",en:"drive"},{pa:"foli",en:"fly"},{pa:"marsi",en:"walk"},{pa:"movi",en:"move"},{pa:"mapo",en:"map"},{pa:"topo",en:"place"},{pa:"mondo",en:"world"},{pa:"kasi",en:"reside/live"}],
+
+  // UNIT 14: EMOTIONS & STATES
+  feelings1:[{pa:"feliso",en:"happiness"},{pa:"malfeliso",en:"sadness"},{pa:"amo",en:"love"},{pa:"malbravo",en:"fear"},{pa:"malami",en:"hate"},{pa:"aspo",en:"hope"},{pa:"malaspo",en:"despair"}],
+  feelings2:[{pa:"dorma",en:"sleepy"},{pa:"onesta",en:"honest"},{pa:"matura",en:"mature"},{pa:"sola",en:"alone"},{pa:"lista",en:"ready"},{pa:"dena",en:"rich"},{pa:"maldena",en:"poor"}],
+  personality:[{pa:"amabla",en:"kind"},{pa:"malamabla",en:"cruel"},{pa:"kora",en:"careful"},{pa:"malkora",en:"careless"},{pa:"helpa",en:"helpful"},{pa:"malhelpa",en:"unhelpful"},{pa:"vera",en:"true"},{pa:"malvera",en:"false"}],
+
+  // UNIT 15: GRAMMAR - MAL PREFIX
+  mal1:[{pa:"malfilo",en:"enemy",note:"mal+filo(friend)"},{pa:"malgranda",en:"small",note:"mal+granda(big)"},{pa:"malfelisa",en:"sad",note:"mal+felisa(happy)"},{pa:"malbela",en:"ugly",note:"mal+bela(beautiful)"},{pa:"malfriga",en:"hot",note:"mal+friga(cold)"},{pa:"malnuva",en:"old",note:"mal+nuva(new)"}],
+  mal2:[{pa:"malpura",en:"dirty",note:"mal+pura(clean)"},{pa:"malkrei",en:"destroy",note:"mal+krei(create)"},{pa:"malveni",en:"leave",note:"mal+veni(come)"},{pa:"malvidi",en:"hide",note:"mal+vidi(see)"},{pa:"malgardi",en:"let go",note:"mal+gardi(hold)"},{pa:"maldoni",en:"take",note:"mal+doni(give)"}],
+
+  // UNIT 16: GRAMMAR - TENSES
+  tense1:[{pa:"me vidi",en:"I see",note:"Present"},{pa:"me pa vidi",en:"I saw",note:"Past: pa+verb"},{pa:"me fu vidi",en:"I will see",note:"Future: fu+verb"},{pa:"me pa nutri",en:"I ate",note:"Past"},{pa:"me fu iri",en:"I will go",note:"Future"},{pa:"yu pa labori",en:"you worked",note:"Past"}],
+  tense2:[{pa:"los pa veni",en:"they came",note:"Past"},{pa:"nos fu ludi",en:"we will play",note:"Future"},{pa:"lu pa kanti",en:"she sang",note:"Past"},{pa:"le fu plumi",en:"he will write",note:"Future"},{pa:"me pa dormi",en:"I slept",note:"Past"},{pa:"yu fu lerni",en:"you will learn",note:"Future"}],
+
+  // UNIT 17: COMPOUND WORDS
+  compound1:[{pa:"panotendo",en:"bakery",note:"pano+tendo"},{pa:"libotendo",en:"bookstore",note:"libo+tendo"},{pa:"karnotendo",en:"meat store",note:"karno+tendo"},{pa:"frukotendo",en:"fruit store",note:"fruko+tendo"},{pa:"interligo",en:"internet",note:"inter+ligo"},{pa:"kompoludo",en:"videogame",note:"kompo+ludo"}],
+  compound2:[{pa:"ropopuro",en:"washing machine",note:"ropo+puro"},{pa:"dentopuro",en:"toothbrush",note:"dento+puro"},{pa:"felifaso",en:"smile",note:"feli+faso"},{pa:"felifasi",en:"to smile",note:"feli+fasi"},{pa:"marsimoro",en:"zombie",note:"marsi+moro"},{pa:"morahumo",en:"ghost",note:"mora+humo"}],
+
+  // UNIT 18: DIMINUTIVES
+  diminutive:[{pa:"pipido",en:"puppy",note:"pipo→pipido"},{pa:"fogido",en:"flame",note:"fogo→fogido"},{pa:"fogidido",en:"spark",note:"fogido→fogidido"},{pa:"orido",en:"minute",note:"oro→orido"},{pa:"oridido",en:"second",note:"orido→oridido"},{pa:"selido",en:"ice cube",note:"selo→selido"},{pa:"wundido",en:"scrape",note:"wundo→wundido"}],
+
+  // UNIT 19: ACTIONS & DAILY LIFE
+  daily1:[{pa:"waki",en:"wake"},{pa:"dormi",en:"sleep"},{pa:"nutri",en:"eat"},{pa:"agwi",en:"drink"},{pa:"ropi",en:"get dressed"},{pa:"bani",en:"use the bathroom"},{pa:"marsi",en:"walk"}],
+  daily2:[{pa:"puri",en:"clean"},{pa:"kusi",en:"cook"},{pa:"labori",en:"work"},{pa:"studi",en:"study"},{pa:"legi",en:"read"},{pa:"okli",en:"look/watch"},{pa:"mesagi",en:"text/message"}],
+  communication:[{pa:"parli",en:"speak"},{pa:"oreli",en:"hear"},{pa:"mesago",en:"message"},{pa:"kanto",en:"song"},{pa:"musiko",en:"music"},{pa:"filmo",en:"movie"},{pa:"filmido",en:"show"},{pa:"sporto",en:"sport"},{pa:"ludo",en:"game"}],
+
+  // UNIT 20: ADVANCED VOCAB
+  abstract1:[{pa:"ideo",en:"idea"},{pa:"dilemo",en:"problem"},{pa:"solvo",en:"solution"},{pa:"eleko",en:"choice"},{pa:"penso",en:"thought"},{pa:"repenso",en:"memory"},{pa:"sabo",en:"knowledge"}],
+  abstract2:[{pa:"vivo",en:"life"},{pa:"moro",en:"death"},{pa:"vero",en:"truth"},{pa:"malvero",en:"lie"},{pa:"libero",en:"freedom"},{pa:"paso",en:"peace"},{pa:"malpaso",en:"war"},{pa:"perigo",en:"danger"}],
+  advanced1:[{pa:"propi",en:"own"},{pa:"propo",en:"property"},{pa:"wadi",en:"promise"},{pa:"wado",en:"promise (noun)"},{pa:"permi",en:"allow"},{pa:"refusi",en:"refuse"},{pa:"preferi",en:"prefer"},{pa:"adapti",en:"fit"}],
+
+  // UNIT 21: ADVERBS & FREQUENCY
+  adverbs:[{pa:"sempra",en:"always"},{pa:"ofta",en:"often"},{pa:"malofta",en:"rarely"},{pa:"ya",en:"already"},{pa:"anka",en:"still"},{pa:"balda",en:"soon"},{pa:"tarda",en:"late"},{pa:"preska",en:"almost"},{pa:"nuna",en:"now"}],
+  quantities:[{pa:"tota",en:"all"},{pa:"suma",en:"some"},{pa:"manga",en:"many"},{pa:"malmanga",en:"few"},{pa:"ada",en:"more"},{pa:"mina",en:"less"},{pa:"lagoma",en:"enough"},{pa:"tro",en:"too much"},{pa:"sola",en:"only"}],
+
+  // SENTENCES
+  s1:[{pa:["Me","esi","bona"],en:"I am good"},{pa:["La","pipo","esi","granda"],en:"The dog is big"},{pa:["Me","vidi","la","gato"],en:"I see the cat"},{pa:["Yu","havi","nuva","libo"],en:"You have a new book"},{pa:["Nos","nutri","pano"],en:"We eat bread"},{pa:["La","kaso","esi","bela"],en:"The house is beautiful"},{pa:["Me","voli","agwo"],en:"I want water"}],
+  s2:[{pa:["La","femo","marsi","rapida"],en:"The woman walks quickly"},{pa:["Ki","yu","sabi"],en:"Do you know?"},{pa:["Me","ami","men","familo"],en:"I love my family"},{pa:["Kwe","la","gato","dormi"],en:"Where does the cat sleep?"},{pa:["La","kido","ludi","en","la","parko"],en:"The child plays in the park"},{pa:["Me","pa","deni","nuva","telo"],en:"I bought a new phone"}],
+  s3:[{pa:["La","granda","elefano","agwi","agwo"],en:"The big elephant drinks water"},{pa:["Men","matro","kusi","nutro","en","la","kuso"],en:"My mother cooks food in the kitchen"},{pa:["Los","pa","marsi","a","la","parko"],en:"They walked to the park"},{pa:["Ki","yu","povi","helpi","me"],en:"Can you help me?"},{pa:["Me","fu","legi","nuva","libo"],en:"I will read a new book"},{pa:["La","malgranda","gato","dormi","sur","la","sedo"],en:"The small cat sleeps on the chair"}],
+  s4:[{pa:["Nos","voli","iri","a","la","playo"],en:"We want to go to the beach"},{pa:["Kwe","yu","kasi"],en:"Where do you live?"},{pa:["Men","patro","labori","en","la","ofiso"],en:"My father works in the office"},{pa:["La","nebofelo","esi","bela","oyo"],en:"The weather is beautiful today"},{pa:["Me","no","kapi","kwi","yu","esi","malfelisa"],en:"I don't understand why you are sad"},{pa:["Me","pa","trovi","men","klavo","sub","la","tablo"],en:"I found my key under the table"}],
+  s5:[{pa:["Los","fu","kanti","kantos","en","la","parko"],en:"They will sing songs in the park"},{pa:["Me","voli","deni","nuva","sapos"],en:"I want to buy new shoes"},{pa:["La","femo","kon","la","reda","ropo","esi","men","filo"],en:"The woman with the red clothes is my friend"},{pa:["La","skolio","pa","skoli","nos","sur","la","stelos"],en:"The teacher taught us about the stars"},{pa:["Yu","debi","nutri","malfrukos","for","yun","sano"],en:"You should eat vegetables for your health"}],
+  s6:[{pa:["Me","povi","vidi","la","stelos","en","la","nebo"],en:"I can see the stars in the sky"},{pa:["La","rapida","kavalo","kuri","tru","la","foro"],en:"The fast horse runs through the forest"},{pa:["Nos","pa","agwi","malfriga","teo","en","la","spero"],en:"We drank hot tea in the evening"},{pa:["Kwa","yu","pensi","sur","lan","libo"],en:"What do you think about this book?"},{pa:["Men","frato","y","men","yoyo","ludi","en","la","parko"],en:"My brother and my sister play in the park"}],
 };
+
+const LESSONS = [
+  // UNIT 1: BASICS (1-5)
+  {id:"greetings1",title:"Basics 1",desc:"Hello, yes, no, please",icon:"👋",vocabKey:"greetings1",xp:10},
+  {id:"pronouns1",title:"Pronouns",desc:"I, you, we, they",icon:"👤",vocabKey:"pronouns1",xp:10},
+  {id:"possessives",title:"Possessives",desc:"My, your, our, their",icon:"🏷️",vocabKey:"possessives",xp:10},
+  {id:"people1",title:"People 1",desc:"Person, friend, child",icon:"🧑",vocabKey:"people1",xp:12},
+  {id:"people2",title:"People 2",desc:"Family members",icon:"👨‍👩‍👧‍👦",vocabKey:"people2",xp:12},
+  // UNIT 2: BASICS 2 (6-9)
+  {id:"colors1",title:"Colors 1",desc:"Primary colors",icon:"🎨",vocabKey:"colors1",xp:12},
+  {id:"colors2",title:"Colors 2",desc:"More colors",icon:"🌈",vocabKey:"colors2",xp:12},
+  {id:"numbers",title:"Numbers",desc:"Zero to ten",icon:"🔢",vocabKey:"numbers",xp:15},
+  {id:"articles",title:"Articles & Questions",desc:"The, this, what, who",icon:"❓",vocabKey:"articles",xp:15},
+  // UNIT 3: FOOD (10-12)
+  {id:"food1",title:"Food 1",desc:"Bread, meat, fruit",icon:"🍞",vocabKey:"food1",xp:12},
+  {id:"food2",title:"Drinks & Ingredients",desc:"Water, milk, sugar",icon:"☕",vocabKey:"food2",xp:12},
+  {id:"cooking",title:"In the Kitchen",desc:"Cook, eat, drink",icon:"🍳",vocabKey:"cooking",xp:15},
+  // UNIT 4: ANIMALS (13-15)
+  {id:"animals1",title:"Animals 1",desc:"Dog, cat, horse",icon:"🐕",vocabKey:"animals1",xp:12},
+  {id:"animals2",title:"Animals 2",desc:"Farm & wild",icon:"🐘",vocabKey:"animals2",xp:12},
+  {id:"animals3",title:"Animals 3",desc:"Insects & reptiles",icon:"🕷️",vocabKey:"animals3",xp:15},
+  // UNIT 5: HOME (16-19)
+  {id:"home1",title:"Home 1",desc:"House, room, door",icon:"🏠",vocabKey:"home1",xp:12},
+  {id:"home2",title:"Furniture",desc:"Table, chair, bed",icon:"🛋️",vocabKey:"home2",xp:12},
+  {id:"objects1",title:"Objects 1",desc:"Book, phone, pen",icon:"📱",vocabKey:"objects1",xp:15},
+  {id:"objects2",title:"Objects 2",desc:"Money, clothes, bag",icon:"👕",vocabKey:"objects2",xp:15},
+  // SENTENCES 1 (20)
+  {id:"s1",title:"Sentences 1",desc:"Simple sentences",icon:"📝",vocabKey:"s1",xp:20,isSentence:true},
+  // UNIT 6: VERBS (21-24)
+  {id:"verbs1",title:"Verbs 1",desc:"Be, have, go, see",icon:"✨",vocabKey:"verbs1",xp:15},
+  {id:"verbs2",title:"Verbs 2",desc:"Want, can, should",icon:"💭",vocabKey:"verbs2",xp:15},
+  {id:"verbs3",title:"Verbs 3",desc:"Run, walk, sit, jump",icon:"🏃",vocabKey:"verbs3",xp:18},
+  {id:"verbs4",title:"Verbs 4",desc:"Work, play, read, write",icon:"✍️",vocabKey:"verbs4",xp:18},
+  // SENTENCES 2 (25)
+  {id:"s2",title:"Sentences 2",desc:"Questions & family",icon:"📝",vocabKey:"s2",xp:22,isSentence:true},
+  // UNIT 7: MORE VERBS (26-29)
+  {id:"verbs5",title:"Verbs 5",desc:"Think, learn, teach",icon:"🧠",vocabKey:"verbs5",xp:18},
+  {id:"verbs6",title:"Verbs 6",desc:"Give, take, buy, sell",icon:"🤝",vocabKey:"verbs6",xp:18},
+  {id:"verbs7",title:"Verbs 7",desc:"Love, help, find",icon:"❤️",vocabKey:"verbs7",xp:20},
+  {id:"verbs8",title:"Verbs 8",desc:"Start, finish, change",icon:"🔄",vocabKey:"verbs8",xp:20},
+  // UNIT 8: ADJECTIVES (30-33)
+  {id:"adj1",title:"Adjectives 1",desc:"Big, small, tall",icon:"📏",vocabKey:"adj1",xp:18},
+  {id:"adj2",title:"Adjectives 2",desc:"Fast, strong, easy",icon:"💪",vocabKey:"adj2",xp:18},
+  {id:"adj3",title:"Adjectives 3",desc:"New, clean, hot, cold",icon:"🌡️",vocabKey:"adj3",xp:20},
+  {id:"adj4",title:"Adjectives 4",desc:"Happy, brave, smart",icon:"😊",vocabKey:"adj4",xp:20},
+  // SENTENCES 3 (34)
+  {id:"s3",title:"Sentences 3",desc:"Descriptions & places",icon:"📝",vocabKey:"s3",xp:25,isSentence:true},
+  // UNIT 9: NATURE (35-38)
+  {id:"nature1",title:"Sky & Weather",desc:"Sun, moon, rain",icon:"☀️",vocabKey:"nature1",xp:18},
+  {id:"nature2",title:"Land & Plants",desc:"Tree, flower, forest",icon:"🌳",vocabKey:"nature2",xp:18},
+  {id:"nature3",title:"Water & Terrain",desc:"River, lake, mountain",icon:"🏔️",vocabKey:"nature3",xp:20},
+  {id:"places",title:"Places",desc:"City, school, store",icon:"🏙️",vocabKey:"places",xp:20},
+  // UNIT 10: BODY (39-41)
+  {id:"body1",title:"Body 1",desc:"Head, eyes, mouth",icon:"👤",vocabKey:"body1",xp:18},
+  {id:"body2",title:"Body 2",desc:"Hand, arm, leg, heart",icon:"🫀",vocabKey:"body2",xp:20},
+  {id:"health",title:"Health",desc:"Sick, medicine, doctor",icon:"🏥",vocabKey:"health",xp:22},
+  // SENTENCES 4 (42)
+  {id:"s4",title:"Sentences 4",desc:"Longer sentences",icon:"📝",vocabKey:"s4",xp:28,isSentence:true},
+  // UNIT 11: GRAMMAR WORDS (43-45)
+  {id:"preps1",title:"Prepositions 1",desc:"In, on, with, under",icon:"📍",vocabKey:"preps1",xp:18},
+  {id:"preps2",title:"Prepositions 2",desc:"For, between, through",icon:"🔀",vocabKey:"preps2",xp:20},
+  {id:"conjunctions",title:"Conjunctions",desc:"And, or, but, because",icon:"🔗",vocabKey:"conjunctions",xp:20},
+  // UNIT 12: TIME (46-49)
+  {id:"time1",title:"Time 1",desc:"Hour, today, tomorrow",icon:"🕐",vocabKey:"time1",xp:18},
+  {id:"time2",title:"Time 2",desc:"Morning, week, year",icon:"📅",vocabKey:"time2",xp:18},
+  {id:"days",title:"Days of the Week",desc:"Monday through Sunday",icon:"📆",vocabKey:"days",xp:20},
+  {id:"seasons",title:"Seasons & Weather",desc:"Spring, summer, winter",icon:"🍂",vocabKey:"seasons",xp:20},
+  // SENTENCES 5 (50)
+  {id:"s5",title:"Sentences 5",desc:"Complex sentences",icon:"📝",vocabKey:"s5",xp:30,isSentence:true},
+  // UNIT 13: TRANSPORT (51-52)
+  {id:"transport",title:"Transport",desc:"Car, bus, airplane",icon:"🚗",vocabKey:"transport",xp:20},
+  {id:"travel",title:"Travel",desc:"Drive, fly, map, world",icon:"🌍",vocabKey:"travel",xp:20},
+  // UNIT 14: EMOTIONS (53-55)
+  {id:"feelings1",title:"Emotions 1",desc:"Joy, sadness, love, fear",icon:"💗",vocabKey:"feelings1",xp:22},
+  {id:"feelings2",title:"Emotions 2",desc:"States & traits",icon:"🎭",vocabKey:"feelings2",xp:22},
+  {id:"personality",title:"Personality",desc:"Kind, honest, careful",icon:"🪞",vocabKey:"personality",xp:22},
+  // UNIT 15: GRAMMAR (56-57)
+  {id:"mal1",title:"mal- Prefix 1",desc:"Opposites with mal-",icon:"🔄",vocabKey:"mal1",xp:25},
+  {id:"mal2",title:"mal- Prefix 2",desc:"More opposites",icon:"↩️",vocabKey:"mal2",xp:25},
+  // UNIT 16: TENSES (58-59)
+  {id:"tense1",title:"Past & Future 1",desc:"pa and fu",icon:"⏳",vocabKey:"tense1",xp:25},
+  {id:"tense2",title:"Past & Future 2",desc:"More tense practice",icon:"⏰",vocabKey:"tense2",xp:25},
+  // UNIT 17: WORD BUILDING (60-62)
+  {id:"compound1",title:"Compound Words 1",desc:"Store + noun words",icon:"🧩",vocabKey:"compound1",xp:25},
+  {id:"compound2",title:"Compound Words 2",desc:"Creative compounds",icon:"🔧",vocabKey:"compound2",xp:25},
+  {id:"diminutive",title:"Diminutives",desc:"The -ido suffix",icon:"🔬",vocabKey:"diminutive",xp:25},
+  // UNIT 19: DAILY LIFE (63-65)
+  {id:"daily1",title:"Daily Routine 1",desc:"Wake, eat, dress",icon:"🌅",vocabKey:"daily1",xp:22},
+  {id:"daily2",title:"Daily Routine 2",desc:"Clean, cook, study",icon:"📖",vocabKey:"daily2",xp:22},
+  {id:"communication",title:"Entertainment",desc:"Music, movies, sports",icon:"🎵",vocabKey:"communication",xp:22},
+  // UNIT 20: ADVANCED (66-68)
+  {id:"abstract1",title:"Abstract 1",desc:"Idea, problem, memory",icon:"💡",vocabKey:"abstract1",xp:25},
+  {id:"abstract2",title:"Abstract 2",desc:"Life, death, truth",icon:"⚖️",vocabKey:"abstract2",xp:25},
+  {id:"advanced1",title:"Advanced Verbs",desc:"Own, promise, allow",icon:"🎓",vocabKey:"advanced1",xp:25},
+  // UNIT 21: ADVERBS (69-70)
+  {id:"adverbs",title:"Adverbs",desc:"Always, often, soon",icon:"⚡",vocabKey:"adverbs",xp:22},
+  {id:"quantities",title:"Quantities",desc:"All, some, many, few",icon:"📊",vocabKey:"quantities",xp:22},
+  // FINAL SENTENCES (71-72)
+  {id:"s6",title:"Sentences 6",desc:"Advanced sentences",icon:"📜",vocabKey:"s6",xp:35,isSentence:true},
+];
 
 const LESSONS = [
   // Basics (diff 1)
@@ -447,15 +514,13 @@ async function fetchLeaderboard(){
 // ═══════════════════════════════════════════════════════════════
 function generateExercises(lessonId){
   const lesson=LESSONS.find(l=>l.id===lessonId);
-  const vocab=VOCAB[lesson.vocabKey];
+  const vocab=V[lesson.vocabKey];
   const mcExercises=[];
   const matchExercises=[];
   const fillExercises=[];
   const wordOrderExercises=[];
 
-  const isSentenceLesson = lessonId.startsWith("sentences");
-
-  if(isSentenceLesson){
+  if(lesson.isSentence){
     vocab.forEach(item=>{
       wordOrderExercises.push({type:"wordOrder",prompt:`Translate: "${item.en}"`,correctOrder:item.pa,shuffled:shuffle([...item.pa])});
     });
@@ -466,49 +531,43 @@ function generateExercises(lessonId){
   } else {
     const items=vocab.map(v=>({pa:v.pa,en:v.en,note:v.note,pr:v.pr}));
 
-    // MC: PA -> EN (learn the words first)
+    // MC: PA -> EN
     items.forEach(item=>{
       const wrong=pick(items.filter(v=>v.en!==item.en),3).map(v=>v.en);
       mcExercises.push({type:"mc",prompt:`What does "${item.pa}" mean?`,correct:item.en,options:shuffle([item.en,...wrong]),note:item.note,pr:item.pr,paWord:item.pa});
     });
-
-    // MC: EN -> PA (reinforce)
+    // MC: EN -> PA
     items.slice(0,5).forEach(item=>{
       const wrong=pick(items.filter(v=>v.pa!==item.pa),3).map(v=>v.pa);
       mcExercises.push({type:"mc",prompt:`How do you say "${item.en}" in Parli Aspo?`,correct:item.pa,options:shuffle([item.pa,...wrong])});
     });
-
     // Matching
     const matchItems=pick(items,4);
     matchExercises.push({type:"match",pairs:matchItems.map(v=>({left:v.pa,right:v.en}))});
-
-    // Mini sentence building using lesson vocab + common words
-    const miniSentences = buildMiniSentences(items, lessonId);
-    miniSentences.forEach(s => wordOrderExercises.push(s));
-
-    // Fill in blank (last — user has seen words by now)
+    // Mini sentences
+    const miniSentences=buildMiniSentences(items,lessonId);
+    miniSentences.forEach(s=>wordOrderExercises.push(s));
+    // Fill blank LAST
     items.slice(0,3).forEach(item=>{
       fillExercises.push({type:"fill",prompt:`"${item.en}" in Parli Aspo is:`,correct:item.pa.toLowerCase()});
     });
   }
 
-  // ORDER: MC first, then matching, then word order, then fill-blank
-  const ordered = [...shuffle(mcExercises).slice(0,5), ...matchExercises, ...shuffle(wordOrderExercises).slice(0,3), ...shuffle(fillExercises).slice(0,2)];
+  // ORDER: MC first, matching, word order, fill blank last
+  const ordered=[...shuffle(mcExercises).slice(0,5),...matchExercises,...shuffle(wordOrderExercises).slice(0,3),...shuffle(fillExercises).slice(0,2)];
   return ordered.slice(0,12);
 }
 
-// Generate mini sentence-building exercises from vocab words
-function buildMiniSentences(items, lessonId){
+function buildMiniSentences(items,lessonId){
   const sentences=[];
   const templates=[
-    {en:(w)=>`The ${w.en} is here`, pa:(w)=>["La",w.pa,"esi","am"]},
-    {en:(w)=>`I see the ${w.en}`, pa:(w)=>["Me","vidi","la",w.pa]},
-    {en:(w)=>`I want ${w.en}`, pa:(w)=>["Me","voli",w.pa]},
-    {en:(w)=>`I have ${w.en}`, pa:(w)=>["Me","havi",w.pa]},
+    {en:(w)=>`The ${w.en} is here`,pa:(w)=>["La",w.pa,"esi","am"]},
+    {en:(w)=>`I see the ${w.en}`,pa:(w)=>["Me","vidi","la",w.pa]},
+    {en:(w)=>`I want ${w.en}`,pa:(w)=>["Me","voli",w.pa]},
+    {en:(w)=>`I have ${w.en}`,pa:(w)=>["Me","havi",w.pa]},
   ];
-  // Pick 2 random items and 2 random templates
-  const chosen = pick(items,2);
-  const tmpl = pick(templates,2);
+  const chosen=pick(items,2);
+  const tmpl=pick(templates,2);
   chosen.forEach((item,i)=>{
     const t=tmpl[i%tmpl.length];
     const pa=t.pa(item);
@@ -630,8 +689,26 @@ function renderHome(){
   const u=state.user;
   const completedSet=new Set(u.lessonsCompleted||[]);
 
+  const UNITS = [
+    {at:0,name:"Unit 1: Basics"},{at:5,name:"Unit 2: Basics 2"},{at:9,name:"Unit 3: Food & Drink"},
+    {at:12,name:"Unit 4: Animals"},{at:15,name:"Unit 5: Home & Objects"},{at:19,name:"Checkpoint 1"},
+    {at:20,name:"Unit 6: Basic Verbs"},{at:24,name:"Checkpoint 2"},{at:25,name:"Unit 7: More Verbs"},
+    {at:29,name:"Unit 8: Adjectives"},{at:33,name:"Checkpoint 3"},{at:34,name:"Unit 9: Nature & Places"},
+    {at:38,name:"Unit 10: Body & Health"},{at:41,name:"Checkpoint 4"},
+    {at:42,name:"Unit 11: Grammar Words"},{at:45,name:"Unit 12: Time"},
+    {at:49,name:"Checkpoint 5"},{at:50,name:"Unit 13: Transport & Travel"},
+    {at:52,name:"Unit 14: Emotions"},{at:55,name:"Unit 15: mal- Prefix"},
+    {at:57,name:"Unit 16: Tenses"},{at:59,name:"Unit 17: Word Building"},
+    {at:62,name:"Unit 18: Daily Life"},{at:65,name:"Unit 19: Advanced"},
+    {at:68,name:"Unit 20: Adverbs & Quantities"},{at:70,name:"Final Challenge"},
+  ];
+  const unitMap={};UNITS.forEach(u=>{unitMap[u.at]=u.name;});
+
   let lessonsHTML="";
   LESSONS.forEach((l,i)=>{
+    if(unitMap[i]){
+      lessonsHTML+=`<div style="margin:${i===0?'0':'18px'} 0 10px;padding:6px 0;color:var(--green);font-size:14px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;border-bottom:1px solid var(--border)">${unitMap[i]}</div>`;
+    }
     const unlocked=i===0||completedSet.has(LESSONS[i-1].id);
     const completed=completedSet.has(l.id);
     const cls=completed?"completed":unlocked?"":"locked";
