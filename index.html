@@ -212,7 +212,7 @@ const V = {
   colors1:[{pa:"reda",en:"red"},{pa:"blua",en:"blue"},{pa:"verda",en:"green"},{pa:"yela",en:"yellow"},{pa:"negra",en:"black"},{pa:"blanka",en:"white"}],
   colors2:[{pa:"orana",en:"orange"},{pa:"purpa",en:"purple"},{pa:"grisa",en:"gray"},{pa:"bruna",en:"brown"},{pa:"kroma",en:"color (adj.)"},{pa:"kromo",en:"color (noun)"}],
   numbers:[{pa:"sera",en:"zero"},{pa:"una",en:"one"},{pa:"dua",en:"two"},{pa:"tria",en:"three"},{pa:"kwara",en:"four"},{pa:"kina",en:"five"},{pa:"sesa",en:"six"},{pa:"sepa",en:"seven"},{pa:"okta",en:"eight"},{pa:"nova",en:"nine"},{pa:"deka",en:"ten"}],
-  articles:[{pa:"la",en:"the"},{pa:"lan",en:"this/these"},{pa:"farlan",en:"that/those"},{pa:"ke",en:"that (conj.)"},{pa:"ki",en:"question particle"},{pa:"kwa",en:"what"},{pa:"kwo",en:"who"},{pa:"kwe",en:"where"},{pa:"kwen",en:"when"},{pa:"kwi",en:"why"}],
+  articles:[{pa:"la",en:"the"},{pa:"lan",en:"this/these"},{pa:"farlan",en:"that/those"},{pa:"ke",en:"that/who/which (conj./rel.)"},{pa:"ki",en:"question particle"},{pa:"kwa",en:"what"},{pa:"kwo",en:"who"},{pa:"kwe",en:"where"},{pa:"kwen",en:"when"},{pa:"kwi",en:"why"}],
 
   // UNIT 3: FOOD & DRINK
   food1:[{pa:"nutro",en:"food"},{pa:"pano",en:"bread"},{pa:"karno",en:"meat"},{pa:"fruko",en:"fruit"},{pa:"malfruko",en:"vegetable"},{pa:"ovo",en:"egg"}],
@@ -220,7 +220,7 @@ const V = {
   cooking:[{pa:"kusi",en:"cook"},{pa:"kuso",en:"kitchen"},{pa:"nutri",en:"eat"},{pa:"agwi",en:"drink"},{pa:"gusti",en:"taste"},{pa:"gusto",en:"flavor"},{pa:"kuto",en:"knife"},{pa:"garfo",en:"fork"},{pa:"spuno",en:"spoon"},{pa:"plato",en:"plate"},{pa:"taso",en:"cup"}],
 
   // UNIT 4: ANIMALS
-  animals1:[{pa:"pipo",en:"dog"},{pa:"gato",en:"cat"},{pa:"pisko",en:"fish"},{pa:"pasero",en:"bird"},{pa:"kavalo",en:"horse"},{pa:"bovo",en:"cow"}],
+  animals1:[{pa:"pipo",en:"dog"},{pa:"gato",en:"cat"},{pa:"pisko",en:"fish"},{pa:"waso",en:"bird"},{pa:"kavalo",en:"horse"},{pa:"bovo",en:"cow"}],
   animals2:[{pa:"elefano",en:"elephant"},{pa:"simo",en:"monkey"},{pa:"galo",en:"chicken"},{pa:"lano",en:"sheep"},{pa:"kapro",en:"goat"},{pa:"pordo",en:"pig"},{pa:"kamelo",en:"camel"}],
   animals3:[{pa:"serpo",en:"snake"},{pa:"insekto",en:"insect"},{pa:"arano",en:"spider"},{pa:"abelo",en:"bee"},{pa:"formiko",en:"ant"},{pa:"musko",en:"fly"},{pa:"sauro",en:"dinosaur"}],
 
@@ -290,6 +290,15 @@ const V = {
   // UNIT 17: COMPOUND WORDS
   compound1:[{pa:"panotendo",en:"bakery",note:"pano+tendo"},{pa:"libotendo",en:"bookstore",note:"libo+tendo"},{pa:"karnotendo",en:"meat store",note:"karno+tendo"},{pa:"frukotendo",en:"fruit store",note:"fruko+tendo"},{pa:"interligo",en:"internet",note:"inter+ligo"},{pa:"kompoludo",en:"videogame",note:"kompo+ludo"}],
   compound2:[{pa:"ropopuro",en:"washing machine",note:"ropo+puro"},{pa:"dentopuro",en:"toothbrush",note:"dento+puro"},{pa:"felifaso",en:"smile",note:"feli+faso"},{pa:"felifasi",en:"to smile",note:"feli+fasi"},{pa:"marsimoro",en:"zombie",note:"marsi+moro"},{pa:"morahumo",en:"ghost",note:"mora+humo"}],
+
+  // UNIT 17B: RE- PREFIX
+  reprefix:[{pa:"relegi",en:"reread",note:"re+legi(read)"},{pa:"refari",en:"redo",note:"re+fari(do)"},{pa:"replumi",en:"rewrite",note:"re+plumi(write)"},{pa:"rekomensi",en:"restart",note:"re+komensi(start)"},{pa:"rebigi",en:"rebuild",note:"re+bigi(build)"},{pa:"repensi",en:"remember",note:"re+pensi(think)"}],
+
+  // UNIT 17C: RELATIVE CLAUSES
+  relclauses:[{pa:["La","humo","ke","labori","am","esi","men","filo"],en:"The person who works here is my friend"},{pa:["La","libo","ke","me","pa","legi","esi","bela"],en:"The book that I read is beautiful"},{pa:["Me","vidi","la","gato","ke","dormi","sur","la","sedo"],en:"I see the cat that sleeps on the chair"},{pa:["La","femo","ke","kanti","esi","men","matro"],en:"The woman who sings is my mother"},{pa:["La","kaso","ke","nos","kasi","en","esi","granda"],en:"The house that we live in is big"}],
+
+  // UNIT 17D: VERB CHAINING
+  verbchain:[{pa:["Me","voli","komensi","labori"],en:"I want to start working"},{pa:["Yu","debi","trati","lerni"],en:"You should try to learn"},{pa:["Nos","pa","komensi","kusi","nutro"],en:"We started cooking food"},{pa:["Los","fu","povi","veni","helpi"],en:"They will be able to come help"},{pa:["Me","voli","iri","nadi"],en:"I want to go swim"},{pa:["Lu","pa","trati","kanti","kanto"],en:"She tried to sing a song"}],
 
   // UNIT 18: DIMINUTIVES
   diminutive:[{pa:"pipido",en:"puppy",note:"pipo→pipido"},{pa:"fogido",en:"flame",note:"fogo→fogido"},{pa:"fogidido",en:"spark",note:"fogido→fogidido"},{pa:"orido",en:"minute",note:"oro→orido"},{pa:"oridido",en:"second",note:"orido→oridido"},{pa:"selido",en:"ice cube",note:"selo→selido"},{pa:"wundido",en:"scrape",note:"wundo→wundido"}],
@@ -402,7 +411,11 @@ const LESSONS = [
   {id:"compound1",title:"Compound Words 1",desc:"Store + noun words",icon:"🧩",vocabKey:"compound1",xp:25},
   {id:"compound2",title:"Compound Words 2",desc:"Creative compounds",icon:"🔧",vocabKey:"compound2",xp:25},
   {id:"diminutive",title:"Diminutives",desc:"The -ido suffix",icon:"🔬",vocabKey:"diminutive",xp:25},
-  // UNIT 19: DAILY LIFE (63-65)
+  {id:"reprefix",title:"re- Prefix",desc:"Redo, reread, rebuild",icon:"🔁",vocabKey:"reprefix",xp:25},
+  // UNIT 17B: GRAMMAR STRUCTURES (63-64)
+  {id:"relclauses",title:"Relative Clauses",desc:"Who, which, that with ke",icon:"🔗",vocabKey:"relclauses",xp:28,isSentence:true},
+  {id:"verbchain",title:"Verb Chaining",desc:"Stack verbs together",icon:"⛓️",vocabKey:"verbchain",xp:28,isSentence:true},
+  // UNIT 19: DAILY LIFE (65-67)
   {id:"daily1",title:"Daily Routine 1",desc:"Wake, eat, dress",icon:"🌅",vocabKey:"daily1",xp:22},
   {id:"daily2",title:"Daily Routine 2",desc:"Clean, cook, study",icon:"📖",vocabKey:"daily2",xp:22},
   {id:"communication",title:"Entertainment",desc:"Music, movies, sports",icon:"🎵",vocabKey:"communication",xp:22},
@@ -410,10 +423,10 @@ const LESSONS = [
   {id:"abstract1",title:"Abstract 1",desc:"Idea, problem, memory",icon:"💡",vocabKey:"abstract1",xp:25},
   {id:"abstract2",title:"Abstract 2",desc:"Life, death, truth",icon:"⚖️",vocabKey:"abstract2",xp:25},
   {id:"advanced1",title:"Advanced Verbs",desc:"Own, promise, allow",icon:"🎓",vocabKey:"advanced1",xp:25},
-  // UNIT 21: ADVERBS (69-70)
+  // UNIT 21: ADVERBS (72-73)
   {id:"adverbs",title:"Adverbs",desc:"Always, often, soon",icon:"⚡",vocabKey:"adverbs",xp:22},
   {id:"quantities",title:"Quantities",desc:"All, some, many, few",icon:"📊",vocabKey:"quantities",xp:22},
-  // FINAL SENTENCES (71-72)
+  // FINAL SENTENCES (74)
   {id:"s6",title:"Sentences 6",desc:"Advanced sentences",icon:"📜",vocabKey:"s6",xp:35,isSentence:true},
 ];
 
@@ -537,7 +550,7 @@ numbers:[{en:"I have two books",pa:["Me","havi","dua","libos"]},{en:"We see thre
 food1:[{en:"I eat bread",pa:["Me","nutri","pano"]},{en:"We eat fruit",pa:["Nos","nutri","fruko"]}],
 food2:[{en:"I drink water",pa:["Me","agwi","agwo"]},{en:"She drinks coffee",pa:["Lu","agwi","kafo"]}],
 cooking:[{en:"I cook in the kitchen",pa:["Me","kusi","en","la","kuso"]},{en:"I need a plate",pa:["Me","nedi","plato"]}],
-animals1:[{en:"The dog runs",pa:["La","pipo","kuri"]},{en:"I see the cat",pa:["Me","vidi","la","gato"]},{en:"The bird sings",pa:["La","pasero","kanti"]}],
+animals1:[{en:"The dog runs",pa:["La","pipo","kuri"]},{en:"I see the cat",pa:["Me","vidi","la","gato"]},{en:"The bird sings",pa:["La","waso","kanti"]}],
 animals2:[{en:"The elephant is big",pa:["La","elefano","esi","granda"]},{en:"The monkey plays",pa:["La","simo","ludi"]}],
 animals3:[{en:"The spider is small",pa:["La","arano","esi","malgranda"]},{en:"The bee is here",pa:["La","abelo","esi","am"]}],
 home1:[{en:"The house is beautiful",pa:["La","kaso","esi","bela"]},{en:"I open the door",pa:["Me","abri","la","porto"]}],
@@ -582,6 +595,9 @@ tense2:[{en:"They came home",pa:["Los","pa","veni","a","kaso"]},{en:"She will si
 compound1:[{en:"I go to the bakery",pa:["Me","iri","a","la","panotendo"]},{en:"I play videogames",pa:["Me","ludi","kompoludos"]}],
 compound2:[{en:"She smiles at me",pa:["Lu","felifasi","a","me"]},{en:"I see a ghost",pa:["Me","vidi","morahumo"]}],
 diminutive:[{en:"The puppy is small",pa:["La","pipido","esi","malgranda"]},{en:"I see a flame",pa:["Me","vidi","fogido"]}],
+reprefix:[{en:"I reread the book",pa:["Me","relegi","la","libo"]},{en:"She rewrites the message",pa:["Lu","replumi","la","mesago"]},{en:"We restart the game",pa:["Nos","rekomensi","la","ludo"]}],
+relclauses:[],
+verbchain:[],
 daily1:[{en:"I wake in the morning",pa:["Me","waki","en","la","matino"]},{en:"I eat and drink",pa:["Me","nutri","y","agwi"]}],
 daily2:[{en:"I clean the house",pa:["Me","puri","la","kaso"]},{en:"I send a message",pa:["Me","sendi","mesago"]}],
 communication:[{en:"I listen to music",pa:["Me","oreli","musiko"]},{en:"We watch a movie",pa:["Nos","okli","filmo"]},{en:"I do jiu jitsu",pa:["Me","teramaludi"]}],
@@ -722,8 +738,8 @@ function renderHome(){
     {at:49,name:"Checkpoint 5"},{at:50,name:"Unit 13: Transport & Travel"},
     {at:52,name:"Unit 14: Emotions"},{at:55,name:"Unit 15: mal- Prefix"},
     {at:57,name:"Unit 16: Tenses"},{at:59,name:"Unit 17: Word Building"},
-    {at:62,name:"Unit 18: Daily Life"},{at:65,name:"Unit 19: Advanced"},
-    {at:68,name:"Unit 20: Adverbs & Quantities"},{at:70,name:"Final Challenge"},
+    {at:65,name:"Unit 18: Daily Life"},{at:68,name:"Unit 19: Advanced"},
+    {at:71,name:"Unit 20: Adverbs & Quantities"},{at:73,name:"Final Challenge"},
   ];
   const unitMap={};UNITS.forEach(u=>{unitMap[u.at]=u.name;});
 
