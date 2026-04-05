@@ -579,7 +579,7 @@ mal1:[{en:"The old house is ugly",pa:["La","malnuva","kaso","esi","malbela"]},{e
 mal2:[{en:"I take the book",pa:["Me","maldoni","la","libo"]},{en:"She leaves the room",pa:["Lu","malveni","la","domo"]}],
 tense1:[{en:"I saw the dog",pa:["Me","pa","vidi","la","pipo"]},{en:"I will eat bread",pa:["Me","fu","nutri","pano"]}],
 tense2:[{en:"They came home",pa:["Los","pa","veni","a","kaso"]},{en:"She will sing tomorrow",pa:["Lu","fu","kanti","fuyo"]}],
-compound1:[{en:"I go to the bakery",pa:["Me","iri","a","la","panotendo"]},{en:"I play videogames",pa:["Me","ludi","kompoludo"]}],
+compound1:[{en:"I go to the bakery",pa:["Me","iri","a","la","panotendo"]},{en:"I play videogames",pa:["Me","ludi","kompoludos"]}],
 compound2:[{en:"She smiles at me",pa:["Lu","felifasi","a","me"]},{en:"I see a ghost",pa:["Me","vidi","morahumo"]}],
 diminutive:[{en:"The puppy is small",pa:["La","pipido","esi","malgranda"]},{en:"I see a flame",pa:["Me","vidi","fogido"]}],
 daily1:[{en:"I wake in the morning",pa:["Me","waki","en","la","matino"]},{en:"I eat and drink",pa:["Me","nutri","y","agwi"]}],
@@ -628,6 +628,7 @@ let state = {
   woAvailable: [],
   woAnswered: false,
   woCorrect: false,
+  waitingContinue: false,
 };
 
 function setState(partial){
@@ -832,6 +833,7 @@ function startLesson(idx){
     matchShuffledRight:ex.type==="match"?shuffle(ex.pairs.map(p=>p.right)):[],
     fillInput:"",fillAnswered:false,fillCorrect:false,
     woSelected:[],woAvailable:ex.type==="wordOrder"?[...ex.shuffled]:[],woAnswered:false,woCorrect:false,
+    waitingContinue:false,
   });
 }
 
@@ -846,6 +848,11 @@ function renderLesson(){
   else if(ex.type==="fill") exHTML=renderFill(ex);
   else if(ex.type==="wordOrder") exHTML=renderWordOrder(ex);
 
+  let continueHTML="";
+  if(state.waitingContinue){
+    continueHTML=`<div class="check-bar"><button id="continueBtn" class="btn-primary" style="background:var(--red);box-shadow:0 4px 20px var(--red-glow)">CONTINUE</button></div>`;
+  }
+
   app.innerHTML=`
     <div class="screen" style="padding:16px 16px 100px 16px">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
@@ -854,9 +861,11 @@ function renderLesson(){
         <div style="display:flex;gap:2px">${heartsHTML}</div>
       </div>
       <div style="max-width:480px;margin:0 auto" class="fade-up">${exHTML}</div>
-    </div>`;
+    </div>${continueHTML}`;
 
   document.getElementById("closeBtn").addEventListener("click",()=>setState({screen:"home"}));
+  const contBtn=document.getElementById("continueBtn");
+  if(contBtn) contBtn.addEventListener("click",()=>advanceAfterAnswer());
   if(ex.type==="mc") bindMC(ex);
   else if(ex.type==="match") bindMatch(ex);
   else if(ex.type==="fill") bindFill(ex);
@@ -891,7 +900,12 @@ function bindMC(ex){
       state.mcSelected=opt;
       state.mcAnswered=true;
       render();
-      setTimeout(()=>handleAnswer(opt===ex.correct),900);
+      const isCorrect=opt===ex.correct;
+      if(isCorrect){
+        setTimeout(()=>handleAnswer(true),900);
+      } else {
+        setTimeout(()=>handleAnswer(false),600);
+      }
     });
   });
 }
@@ -984,7 +998,11 @@ function doFillCheck(ex){
   state.fillAnswered=true;
   state.fillCorrect=correct;
   render();
-  setTimeout(()=>handleAnswer(correct),1200);
+  if(correct){
+    setTimeout(()=>handleAnswer(true),1200);
+  } else {
+    setTimeout(()=>handleAnswer(false),600);
+  }
 }
 
 // Word Order
@@ -1039,7 +1057,11 @@ function bindWordOrder(ex){
     state.woAnswered=true;
     state.woCorrect=correct;
     render();
-    setTimeout(()=>handleAnswer(correct),1000);
+    if(correct){
+      setTimeout(()=>handleAnswer(true),1000);
+    } else {
+      setTimeout(()=>handleAnswer(false),600);
+    }
   });
 }
 
@@ -1047,26 +1069,30 @@ function bindWordOrder(ex){
 // ANSWER HANDLER
 // ═══════════════════════════════════════════════════════════════
 function handleAnswer(correct){
-  let newHearts=state.hearts;
-  let accXP=state.accXP;
-
   if(correct){
     state.correct++;
-    accXP+=state.lesson.xp/state.exercises.length;
+    state.accXP+=state.lesson.xp/state.exercises.length;
+    // Correct answers auto-advance
+    advanceAfterAnswer();
   } else {
-    newHearts--;
+    state.hearts--;
+    // Wrong answers: show continue button, don't advance yet
+    state.waitingContinue=true;
+    render();
   }
-  state.hearts=newHearts;
-  state.accXP=accXP;
+}
 
-  if(newHearts<=0){
+function advanceAfterAnswer(){
+  state.waitingContinue=false;
+
+  if(state.hearts<=0){
     setState({screen:"complete"});
     return;
   }
 
   if(state.exIdx+1>=state.exercises.length){
     // Lesson complete — save
-    const totalXP=Math.round(accXP);
+    const totalXP=Math.round(state.accXP);
     const user={
       ...state.user,
       xp:state.user.xp+totalXP,
@@ -1088,6 +1114,7 @@ function handleAnswer(correct){
       matchShuffledRight:nextEx.type==="match"?shuffle(nextEx.pairs.map(p=>p.right)):[],
       fillInput:"",fillAnswered:false,fillCorrect:false,
       woSelected:[],woAvailable:nextEx.type==="wordOrder"?[...nextEx.shuffled]:[],woAnswered:false,woCorrect:false,
+      waitingContinue:false,
     });
   }
 }
